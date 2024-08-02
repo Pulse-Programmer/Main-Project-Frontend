@@ -1,13 +1,14 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css");
-body{
+.landing{
     background: linear-gradient(to bottom, #9B46C2, #9969BB,#9796B1,#94CAA6);
-    height: 89vh;
+    height: 100vh;
+    
 
 }
 .h1{
     text-align: center;
     font-size: 12vh;
-    margin-top: 10vh;
+    padding-top: 10vh;
     color: #21755C ;
 }
 .p1{
@@ -35,14 +36,15 @@ body{
 }
 
 /* Media Query */
-
+ 
 @media (min-width: 576px){
-    body{
-        height: 189vh;
+    .landing{
+        
+        height: 180vh;
     }
     .h1{
         font-size: 6vh;
-        margin-top: 18vh;
+     
     }
     .p1{
         font-size: 3vh;
@@ -54,12 +56,13 @@ body{
 
 }
 @media (min-width: 768px){
-    body{
-        height: 120vh;
+    .landing{
+        height: 140vh;
+       
     }
     .h1{
         font-size: 8vh;
-        margin-top: 10vh;
+        padding-top: 10vh;
     }
     .wel{
         margin-top: 1vh;
@@ -70,12 +73,13 @@ body{
     }
 }
 @media (min-width: 992px){
-    body{
-        height: 120vh;
+    .landing{
+        height: 140vh;
+        
     }
     .h1{
         font-size: 10vh;
-        margin-top: 10vh;
+        padding-top: 10vh;
     }
     .wel{
         margin-top: 1vh;
@@ -85,11 +89,12 @@ body{
         font-size: 4vh;
     }
 }
-@media (min-width: 992px){
-    body{
-        height: 89vh;
+@media (min-width: 1200px){
+    .landing{
+        height: 100vh;
+        
     }
     .h1{
         font-size: 10vh;
     }
-}
+} 
