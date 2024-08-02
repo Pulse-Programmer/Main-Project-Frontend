@@ -1,5 +1,8 @@
 import React from "react";
-import '/home/victor/Moringa/Code/SE-phase-5/final-project/Main-Project-Frontend/src/CSS/logins-css/login.css'
+import '../../CSS/logins-css/login.css';
+
+
+
 
 
 
