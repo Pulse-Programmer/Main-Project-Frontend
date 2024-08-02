@@ -1,12 +1,12 @@
 import React from "react";
-import '/home/victor/Moringa/Code/SE-phase-5/final-project/Main-Project-Frontend/src/CSS/logins-css/admins-login.css'
+import '/home/victor/Moringa/Code/SE-phase-5/final-project/Main-Project-Frontend/src/CSS/logins-css/login.css'
 
 
 
 
 function Jobseekerlogin() {
   return (
-    <div className="landing">
+    <div className="login">
       <div>
         <h1 className="h1">Welcome back,job seeker!</h1>
         <p className="p1">Sign in to view your profile</p>
