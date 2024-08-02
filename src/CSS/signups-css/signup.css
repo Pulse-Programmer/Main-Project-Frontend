@@ -1,0 +1,97 @@
+.signup{
+    background: linear-gradient(to bottom, #9B46C2, #9969BB,#9796B1,#94CAA6);
+    height: 100vh;
+}
+.input{
+    width: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+.form-control{
+    height:4vh;
+    margin-top: 2vh;
+}
+.h4{
+    margin-top: 2vh;
+    text-align: center;
+   
+}
+a{ 
+    text-decoration: none;
+}
+.btn2{
+    text-align: center;
+    font-size: 3vh;
+   
+}
+.up{
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
+}
+.don{
+    font-size: 3vh;
+    padding-right: 5vh;
+}
+ 
+@media (min-width: 576px){
+    .landing{
+        
+        height: 180vh;
+    }
+    .h1{
+        font-size: 6vh;
+     
+    }
+    .p1{
+        font-size: 3vh;
+    }
+    .wel{
+        margin-top: 3vh;
+        padding-top: 3vh;
+    }
+
+}
+@media (min-width: 768px){
+    .signup{
+        height: 100vh;
+       
+    }
+    .h1{
+        font-size: 8vh;
+        padding-top: 10vh;
+    }
+    .wel{
+        margin-top: 1vh;
+        padding-top: 3vh;
+    }
+    .p1{
+        font-size: 3vh;
+    }
+}
+@media (min-width: 992px){
+    .signup{
+        height: 100vh;
+       
+    }
+    .h1{
+        font-size: 10vh;
+        padding-top: 10vh;
+    }
+    .wel{
+        margin-top: 1vh;
+        padding-top: 3vh;
+    }
+    .p1{
+        font-size: 4vh;
+    }
+}
+@media (min-width: 1200px){
+    .signup{
+        height: 100vh;
+       
+    }
+    .h1{
+        font-size: 10vh;
+    }
+} 

@@ -1,5 +1,5 @@
 import React  from "react";
-import '/home/victor/Moringa/Code/SE-phase-5/final-project/Main-Project-Frontend/src/CSS/landing.css'
+import '../CSS/landing.css'
 import { Link } from "react-router-dom";
 
 

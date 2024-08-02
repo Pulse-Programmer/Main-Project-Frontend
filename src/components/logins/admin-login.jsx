@@ -1,5 +1,5 @@
 import React from "react";
-import '/home/victor/Moringa/Code/SE-phase-5/final-project/Main-Project-Frontend/src/CSS/logins-css/login.css'
+import '../../CSS/logins-css/login.css'
 
 
 
@@ -36,7 +36,9 @@ function Adminlogin() {
         </div>
         <div className="up">
             <p className="don">Don't have an account? </p>
+            <a href="/admin-signup">
             <button type="button" className="btn btn2 btn-success">Sign up</button>
+            </a>
         </div>
       </div>
     </div>
