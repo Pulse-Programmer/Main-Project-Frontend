@@ -1,17 +1,32 @@
 import React,{useState} from 'react';
 import '../../CSS/signups-css/signup.css'
+import { useNavigate } from 'react-router-dom';
+
 
 const SignUp = () => {
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState('');
+  const navigate = useNavigate();
 
   const handleRoleChange = (e) => {
     setRole(e.target.value)
-  }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Redirect to respective profile page based on role
+    if (role === 'admin') {
+      navigate('/admin-profile');
+    } else if (role === 'jobseeker') {
+      navigate('/jobseeker-profile');
+    } else if (role === 'employer') {
+      navigate('/employers-profile');
+    }
+  };
+
   return (
     <div className="signup">
       <h1 className='h1'>Welcome !</h1>
       <p className='p1'>create your profile</p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='mb-3 input'>
         <input 
             type="text"  
