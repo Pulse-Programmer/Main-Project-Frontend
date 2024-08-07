@@ -1,10 +1,9 @@
 import App from './App'
-import Adminlogin from './components/logins/admin-login'
-import Jobseekerlogin from './components/logins/jobseekers-login'
-import Employerlogin from './components/logins/employer-login'
-import JobSeekerSignUp from './components/signups/jobseeker-signUp'
-import EmployerSignUp from './components/signups/employer-signUp'
-import AdminSignUp from './components/signups/admin-signUp'
+import Login from './components/logins/Login'
+import SignUp from './components/signups/SignUp'
+import JobSeekerProfile from './components/Profiles/JobSeekerProfile'
+import EmployersProfile from './components/Profiles/EmployersProfile'
+import AdminProfile from './components/Profiles/AdminProfile'
 
 const routes = [
     {
@@ -12,31 +11,28 @@ const routes = [
         element: <App/>
     },
     {
-        path: '/admin-login',
-        element: <Adminlogin/>
+        path: '/login',
+        element: <Login/>
     },
     {
-        path: '/jobseeker-login',
-        element: <Jobseekerlogin/>
+        path: '/signup',
+        element: <SignUp/>
     },
     {
-        path: '/employer-login',
-        element: <Employerlogin/>
+        path:'/jobseeker-profile',
+        element: <JobSeekerProfile/>
     },
     {
-        path: '/jobseeker-signup',
-        element: <JobSeekerSignUp/>
+        path:'/employers-profile',
+        element: <EmployersProfile/>
     },
     {
-        path: '/employer-signup',
-        element: <EmployerSignUp/>
+        path:'/admin-profile',
+        element: <AdminProfile/>
     },
-    {
-        path: '/admin-signup',
-        element: <AdminSignUp/>
-    },
-    // Add more paths here as needed...
-    // Add more routes here as needed...
+    
+    
+    
 
 
 ]

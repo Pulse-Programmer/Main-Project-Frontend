@@ -13,25 +13,8 @@ function Welcomepage(){
             <div className="row row-sm">
                 <div className="col-3 wel col-sm-12 col-md-6 col-lg-6 col-xl-3">
                     <div>
-                        <img className="icon" src="https://img.icons8.com/?size=100&id=101865&format=png&color=000000" alt="" />
-                        <h2 className="icon-name">Admin</h2>
-                        <Link to={`/admin-login`} type="button" className="btn btn1 btn-success">Sign in</Link> 
-                    </div>
-                </div>
-                <div className="col-3 wel col-sm-12 col-md-6 col-lg-6 col-xl-3 ">
-                    <div>
-                        <img className="icon"  src="https://img.icons8.com/?size=100&id=43460&format=png&color=000000" alt="" />
-                        <h2 className="icon-name">Job Seeker</h2>
-                        <Link to={`/jobseeker-login`} type="button" className="btn btn1 btn-success">Sign in</Link>
                         
-                    </div>
-                </div>
-                <div className="col-3 wel col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                    <div>
-                        <img className="icon"  src="https://img.icons8.com/?size=100&id=ajuvm9ItWIP7&format=png&color=000000" alt="" />
-                        <h2 className="icon-name">Employer</h2>
-                        <Link to={`/employer-login`} type="button" className="btn btn1 btn-success">Sign in</Link>
-                        
+                        <Link to={`/login`} type="button" className="btn btn1 btn-success">Login </Link> 
                     </div>
                 </div>
 

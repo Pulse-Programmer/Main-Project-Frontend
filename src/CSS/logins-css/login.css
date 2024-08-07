@@ -11,6 +11,16 @@
     height:5vh;
     margin-top: 4vh;
 }
+.form{
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    height: 5vh;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 100%;
+    max-width: 600px;
+   
+}
 .h4{
     margin-top: 2vh;
     text-align: center;
