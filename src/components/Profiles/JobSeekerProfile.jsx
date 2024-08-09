@@ -1,143 +1,247 @@
 import React, { useState } from 'react';
 
-
-const JobSeekerProfile = () => {
-  const [profilePicture, setProfilePicture] = useState(null);
-  const [formData, setFormData] = useState({
-    experience: '',
-    education: '',
-    skills: '',
-    bio: '',
-    documents: null,
+function JobSeekerProfile() {
+  const [formValues, setFormValues] = useState({
+    name: "",
+    experience: "",
+    jobCategory: "",
+    education: "",
+    skills: "",
+    bio: "",
   });
 
+  const [profilePictureUrl, setProfilePictureUrl] = useState("");
+  const [documentsUrls, setDocumentsUrls] = useState([]);
+
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    const { name } = e.target;
-    const file = e.target.files[0];
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: file,
-    }));
-  };
-
+  // Handle file change for profile picture
   const handleProfilePictureChange = (e) => {
-    setProfilePicture(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      uploadFile(file).then(url => setProfilePictureUrl(url));
+    }
   };
 
-  const handleSubmit = (e) => {
+  // Handle file change for documents
+  const handleDocumentsChange = (e) => {
+    const files = Array.from(e.target.files);
+    const uploadPromises = files.map(file => uploadFile(file));
+    
+    Promise.all(uploadPromises).then(urls => setDocumentsUrls(urls));
+  };
+
+  // Upload a file to the server and return the URL
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('http://localhost:3000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error('File upload failed');
+      }
+      const data = await response.json();
+      return data.fileUrl; // Assuming the server returns the file URL
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      return null;
+    }
+  };
+
+  // Validate form fields
+  const isFormValid = () => {
+    return (
+      formValues.name &&
+      formValues.experience &&
+      formValues.jobCategory &&
+      formValues.education &&
+      formValues.skills &&
+      formValues.bio
+    );
+  };
+
+  // Clear form fields
+  const clearForm = () => {
+    setFormValues({
+      name: "",
+      experience: "",
+      jobCategory: "",
+      education: "",
+      skills: "",
+      bio: "",
+    });
+    setProfilePictureUrl("");
+    setDocumentsUrls([]);
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append('profilePicture', profilePicture);
-    data.append('experience', formData.experience);
-    data.append('education', formData.education);
-    data.append('skills', formData.skills);
-    data.append('bio', formData.bio);
-    if (formData.documents) {
-      data.append('documents', formData.documents);
+
+    if (!isFormValid()) {
+      alert('Please fill out all required fields.');
+      return;
     }
 
-    fetch('http://localhost:3000/update-profile', {
-      method: 'POST',
-      body: data,
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log('Profile updated successfully', data);
-      })
-      .catch((err) => {
-        console.error('Error updating profile', err);
-      });
-  };
+    // Create profile data with URLs
+    const profileData = {
+      name: formValues.name,
+      experience: formValues.experience,
+      jobCategory: formValues.jobCategory,
+      education: formValues.education,
+      skills: formValues.skills,
+      bio: formValues.bio,
+      profilePicture: profilePictureUrl,
+      documents: documentsUrls,
+    };
 
-  const handleDelete = (field) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: '',
-    }));
+    try {
+      const response = await fetch('http://localhost:3000/profiles', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Profile creation failed');
+      }
+      await response.json();
+      alert('Profile created successfully!');
+
+      // Clear the form after successful submission
+      clearForm();
+    } catch (error) {
+      console.error('Error creating profile:', error.message);
+    }
   };
 
   return (
-    <div className='authict-page'>
-    <div className="authic-page">
-      <form className="profile-form" onSubmit={handleSubmit}>
-        <div className="profile-header">
-          <input type="file" onChange={handleProfilePictureChange} id="profilePicInput" className="hidden-input" />
-          {profilePicture && (
-            <img
-              src={URL.createObjectURL(profilePicture)}
-              alt="Profile Preview"
-              className="profile-picture"
+    <div className="authict-page">
+      <div className="authic-page">
+        <form className="profile-form" onSubmit={handleSubmit}>
+          <div className="profile-card">
+            <h4 className="card-title">Profile Picture</h4>
+            <input
+              type="file"
+              name="profilePicture"
+              onChange={handleProfilePictureChange}
+              className="card-content"
             />
-          )}
-          <div className="profile-info">
-            <h2 className="profile-name">John Doe</h2>
-            <h3 className="profile-title">Software Engineer</h3>
+            {profilePictureUrl && (
+              <a
+                href={profilePictureUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="profile-picture-link"
+              >
+                View Profile Picture
+              </a>
+            )}
           </div>
-        </div>
-        <div className="profile-card">
-          <h4 className="card-title">Work Experience</h4>
-          <textarea
-            className="card-content"
-            name="experience"
-            value={formData.experience}
-            onChange={handleInputChange}
-          />
-          <button className="add-button" type="button" onClick={() => handleDelete('experience')}>Delete</button>
-        </div>
-        <div className="profile-card">
-          <h4 className="card-title">Education</h4>
-          <textarea
-            className="card-content"
-            name="education"
-            value={formData.education}
-            onChange={handleInputChange}
-          />
-          <button className="add-button" type="button" onClick={() => handleDelete('education')}>Delete</button>
-        </div>
-        <div className="profile-card">
-          <h4 className="card-title">Skills</h4>
-          <textarea
-            className="card-content"
-            name="skills"
-            value={formData.skills}
-            onChange={handleInputChange}
-          />
-          <button className="add-button" type="button" onClick={() => handleDelete('skills')}>Delete</button>
-        </div>
-        <div className="profile-card">
-          <h4 className="card-title">Bio</h4>
-          <textarea
-            className="card-content"
-            name="bio"
-            value={formData.bio}
-            onChange={handleInputChange}
-          />
-          <button className="add-button" type="button" onClick={() => handleDelete('bio')}>Delete</button>
-        </div>
-        <div className="profile-card">
-          <h4 className="card-title">Documents</h4>
-          <input className="card-content" type="file" name="documents" onChange={handleFileChange} />
-          {formData.documents && <p className="document-name">{formData.documents.name}</p>}
-          <button className="add-button" type="button" onClick={() => handleDelete('documents')}>Delete</button>
-        </div>
-        <button type="submit" className="save-button">Save Profile</button>
-      </form>
-    </div>
+          <div className="profile-card">
+            <h4 className="card-title">Name</h4>
+            <input
+              type="text"
+              name="name"
+              value={formValues.name}
+              onChange={handleInputChange}
+              className="card-content"
+              required
+            />
+          </div>
+          <div className="profile-card">
+            <h4 className="card-title">Experience</h4>
+            <input
+              type="text"
+              name="experience"
+              value={formValues.experience}
+              onChange={handleInputChange}
+              className="card-content"
+              required
+            />
+          </div>
+          <div className="profile-card">
+            <h4 className="card-title">Job Category</h4>
+            <input
+              type="text"
+              name="jobCategory"
+              value={formValues.jobCategory}
+              onChange={handleInputChange}
+              className="card-content"
+              required
+            />
+          </div>
+          <div className="profile-card">
+            <h4 className="card-title">Education</h4>
+            <input
+              type="text"
+              name="education"
+              value={formValues.education}
+              onChange={handleInputChange}
+              className="card-content"
+              required
+            />
+          </div>
+          <div className="profile-card">
+            <h4 className="card-title">Skills</h4>
+            <input
+              type="text"
+              name="skills"
+              value={formValues.skills}
+              onChange={handleInputChange}
+              className="card-content"
+              required
+            />
+          </div>
+          <div className="profile-card">
+            <h4 className="card-title">Bio</h4>
+            <input
+              type="text"
+              name="bio"
+              value={formValues.bio}
+              onChange={handleInputChange}
+              className="card-content"
+              required
+            />
+          </div>
+          <div className="profile-card">
+            <h4 className="card-title">Documents</h4>
+            <input
+              type="file"
+              name="documents"
+              multiple
+              onChange={handleDocumentsChange}
+              className="card-content"
+            />
+            {documentsUrls.length > 0 && documentsUrls.map((url, index) => (
+              <a
+                key={index}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="document-link"
+              >
+                View Document {index + 1}
+              </a>
+            ))}
+          </div>
+          <button type="submit" className="save-button" disabled={!isFormValid()}>
+            Save Profile
+          </button>
+        </form>
+      </div>
     </div>
   );
-};
+}
 
 export default JobSeekerProfile;
