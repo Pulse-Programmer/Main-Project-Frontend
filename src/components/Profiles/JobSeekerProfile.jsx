@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import '../../CSS/profiles-css/jobseeker.css'
 
 function JobSeekerProfile() {
   const location = useLocation();
@@ -234,7 +235,7 @@ function JobSeekerProfile() {
             <textarea
               className="card-content"
               name="bio"
-              placeholder="Brief Bio"
+              placeholder=" Bio"
               value={formValues.bio}
               onChange={handleInputChange}
               required
@@ -257,7 +258,7 @@ function JobSeekerProfile() {
               </p>
             )}
           </div>
-          <button type="submit">Save Profile</button>
+          <button type="submit" className='save-button'>Save Profile</button>
         </form>
       </div>
       <br />
@@ -271,7 +272,7 @@ function JobSeekerProfile() {
               <p>Education: {profile.education}</p>
               <p>Skills: {profile.skills}</p>
               <p>Bio: {profile.bio}</p>
-              <button onClick={() => handleUpdateProfile(profile.id)}>Edit Profile</button>
+              <button onClick={() => handleUpdateProfile(profile.id)} className='add-button'>Edit Profile</button>
             </div>
           ))}
         </div>
