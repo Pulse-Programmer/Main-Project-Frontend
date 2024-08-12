@@ -1,6 +1,8 @@
 // src/redux/store.js
-import { createStore } from 'redux';
+
 import jobseekerReducer from './reducer';
+import { createStore } from'redux';
+
 
 const store = createStore(jobseekerReducer);
 

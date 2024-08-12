@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import '../../CSS/profiles-css/jobseeker.css'
+import { useOutletContext, useNavigate} from 'react-router-dom';
+import '../../CSS/jobseeker-css/jobseeker.css'
 
 function JobSeekerProfile() {
-  const location = useLocation();
-  const username = location.state?.username || '';
-  const [profilePicture, setProfilePicture] = useState(null);
+  const {user, setUser} = useOutletContext()
+  const navigate = useNavigate()
+  
+  const [profpic, setProfpic] = useState(null);
   const [profiles, setProfiles] = useState([]);
   const [formValues, setFormValues] = useState({
     name: '',
-    experience: '',
-    jobCategory: '',
+    work_experience: '',
+    job_category: '',
     education: '',
     skills: '',
     bio: '',
-    documents: [],
+    resume_file:'',
+    salary_expectation:'',
+    
   });
 
   const handleInputChange = (e) => {
@@ -22,71 +25,73 @@ function JobSeekerProfile() {
     setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      documents: files,
-    }));
-  };
+  // const handleFileChange = (e) => {
+  //   const files = Array.from(e.target.files);
+  //   setFormValues((prevValues) => ({
+  //     ...prevValues,
+  //     documents: files,
+  //   }));
+  // };
 
   const handleProfilePictureChange = (e) => {
-    setProfilePicture(e.target.files[0]);
+    setProfpic(e.target.files[0]);
   };
 
-  const uploadProfilePicture = async (profileId) => {
-    if (profilePicture) {
-      const formData = new FormData();
-      formData.append('profilePicture', profilePicture);
+  // const uploadProfilePicture = async (profileId) => {
+  //   if (profpic) {
+  //     const formData = new FormData();
+  //     formData.append('profpic', profpic);
 
-      try {
-        const response = await fetch(`http://localhost:3000/upload-picture`, {
-          method: 'POST',
-          body: formData,
-        });
-        if (!response.ok) {
-          throw new Error('Failed to upload profile picture');
-        }
-      } catch (error) {
-        console.error('Error uploading profile picture:', error);
-      }
-    }
-  };
+  //     try {
+  //       const response = await fetch(`http://localhost:3000/upload-picture`, {
+  //         method: 'POST',
+  //         body: formData,
+  //       });
+  //       if (!response.ok) {
+  //         throw new Error('Failed to upload profile picture');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error uploading profile picture:', error);
+  //     }
+  //   }
+  // };
 
-  const uploadDocuments = async (profileId) => {
-    if (formValues.documents.length > 0) {
-      const formData = new FormData();
-      formValues.documents.forEach((file, index) => {
-        formData.append(`documents[${index}]`, file);
-      });
+  // const uploadDocuments = async (profileId) => {
+  //   if (formValues.documents.length > 0) {
+  //     const formData = new FormData();
+  //     formValues.documents.forEach((file, index) => {
+  //       formData.append(`documents[${index}]`, file);
+  //     });
 
-      try {
-        const response = await fetch(`http://localhost:3000/upload-documents`, {
-          method: 'POST',
-          body: formData,
-        });
-        if (!response.ok) {
-          throw new Error('Failed to upload documents');
-        }
-      } catch (error) {
-        console.error('Error uploading documents:', error);
-      }
-    }
-  };
+  //     try {
+  //       const response = await fetch(`http://localhost:3000/upload-documents`, {
+  //         method: 'POST',
+  //         body: formData,
+  //       });
+  //       if (!response.ok) {
+  //         throw new Error('Failed to upload documents');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error uploading documents:', error);
+  //     }
+  //   }
+  // };
 
   const handleAddProfile = async (e) => {
     e.preventDefault();
     const profileData = {
-      name: formValues.name,
-      experience: formValues.experience,
-      jobCategory: formValues.jobCategory,
+      // name: formValues.name,
+      work_experience: formValues.work_experience,
+      job_category: formValues.job_category,
       education: formValues.education,
       skills: formValues.skills,
       bio: formValues.bio,
+      resume_file: formValues.resume_file,
+      salary_expectation: formValues.salary_expectation,
     };
-
+    console.log(profileData)
     try {
-      const response = await fetch('http://localhost:3000/jobseekers', {
+      const response = await fetch('/jobseekers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,20 +106,21 @@ function JobSeekerProfile() {
 
       const newProfile = await response.json();
 
-      await uploadProfilePicture(newProfile.id);
-      await uploadDocuments(newProfile.id);
+      // await uploadProfilePicture(newProfile.id);
+      // await uploadDocuments(newProfile.id);
 
       setProfiles((prevProfiles) => [...prevProfiles, newProfile]);
       setFormValues({
-        name: '',
-        experience: '',
-        jobCategory: '',
+        // name: '',
+        work_experience: '',
+        job_category: '',
         education: '',
         skills: '',
         bio: '',
-        documents: [],
+        resume_file:'',
+        salary_expectation:'',
       });
-      setProfilePicture(null);
+      setProfpic(null);
 
     } catch (error) {
       console.error('Error adding profile:', error);
@@ -123,16 +129,18 @@ function JobSeekerProfile() {
 
   const handleUpdateProfile = async (profileId) => {
     const profileData = {
-      name: formValues.name,
-      experience: formValues.experience,
-      jobCategory: formValues.jobCategory,
+      // name: formValues.name,
+      work_experience: formValues.work_experience,
+      job_category: formValues.job_category,
       education: formValues.education,
       skills: formValues.skills,
       bio: formValues.bio,
+      resume_file: formValues.resume_file,
+      salary_expectation: formValues.salary_expectation,
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/jobseekers/${profileId}`, {
+      const response = await fetch(`/jobseekers/<int:id>`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -147,8 +155,8 @@ function JobSeekerProfile() {
 
       const updatedProfile = await response.json();
 
-      await uploadProfilePicture(updatedProfile.id);
-      await uploadDocuments(updatedProfile.id);
+      // await uploadProfilePicture(updatedProfile.id);
+      // await uploadDocuments(updatedProfile.id);
 
       setProfiles((prevProfiles) =>
         prevProfiles.map((profile) => (profile.id === profileId ? updatedProfile : profile))
@@ -159,26 +167,39 @@ function JobSeekerProfile() {
     }
   };
 
+  function handleLogoutClick() {
+    console.log("hello");
+    fetch("/logout", { method: "DELETE" })
+      .then((r) => {
+        if (r.ok) {
+          setUser(null);
+        }
+      })
+      .then(() => navigate("/"));
+    
+  }
+  if(user){
   return (
     <div className="authict-page">
       <h2>Job Seeker Profile</h2>
       <div className="authic-page">
         <form className="profile-form" onSubmit={handleAddProfile}>
           <div className="profile-header">
-            <h3>{username}</h3>
+            <h3>{user.username}</h3>
             <input
               className="hidden-input"
               type="file"
               name="profilePicture"
               onChange={handleProfilePictureChange}
             />
-            {profilePicture && (
+            {profpic && (
               <img
-                src={URL.createObjectURL(profilePicture)}
+                src={URL.createObjectURL(profpic)}
                 alt="Profile Preview"
                 className="profile-picture"
               />
             )}
+            <button onClick={handleLogoutClick} > logout</button>
           </div>
           <div className="profile-card">
             <input
@@ -188,27 +209,27 @@ function JobSeekerProfile() {
               placeholder="Full Name"
               value={formValues.name}
               onChange={handleInputChange}
-              required
+              
             />
           </div>
           <div className="profile-card">
             <textarea
               className="card-content"
-              name="experience"
+              name="work_experience"
               placeholder="Experience"
-              value={formValues.experience}
+              value={formValues.work_experience}
               onChange={handleInputChange}
-              required
+              
             />
           </div>
           <div className="profile-card">
             <textarea
               className="card-content"
-              name="jobCategory"
+              name="job_category"
               placeholder="Job Category"
-              value={formValues.jobCategory}
+              value={formValues.job_category}
               onChange={handleInputChange}
-              required
+              
             />
           </div>
           <div className="profile-card">
@@ -242,21 +263,32 @@ function JobSeekerProfile() {
             />
           </div>
           <div className="profile-card">
-            <h4 className="card-title">Upload Documents</h4>
             <input
               className="card-content"
-              type="file"
-              name="documents"
-              onChange={handleFileChange}
-              multiple
+              type="number"
+              name="salary_expectation"
+              placeholder="Salary Expectation"
+              value={formValues.salary_expectation}
+              onChange={handleInputChange}
+              required
+            /> 
+          </div>
+          <div className="profile-card">
+            <input
+              className="card-content"
+              name="resume_file"
+              placeholder='resumeFile_url'
+              value={formValues.resume_file}
+              onChange={handleInputChange}
+              required
             />
-            {formValues.documents.length > 0 && (
+            {/* {formValues.documents.length > 0 && (
               <p className="document-name">
                 {formValues.documents.map((file, index) => (
                   <span key={index}>{file.name}</span>
                 ))}
               </p>
-            )}
+            )} */}
           </div>
           <button type="submit" className='save-button'>Save Profile</button>
         </form>
@@ -272,13 +304,20 @@ function JobSeekerProfile() {
               <p>Education: {profile.education}</p>
               <p>Skills: {profile.skills}</p>
               <p>Bio: {profile.bio}</p>
+              <p>Resume: {profile.resume_file}</p>
               <button onClick={() => handleUpdateProfile(profile.id)} className='add-button'>Edit Profile</button>
             </div>
           ))}
         </div>
       )}
     </div>
-  );
+  )
+  }else{
+    return (
+      <div><h1> loading....</h1></div>
+    );
+  ;
+}
 }
 
 export default JobSeekerProfile;

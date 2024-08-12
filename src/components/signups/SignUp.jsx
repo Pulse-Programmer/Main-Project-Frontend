@@ -49,7 +49,7 @@ const SignUp = () => {
         response.json().then((user_data) =>{ setUser(user_data)
           if (user_data.role === 'admin') {
             navigate('/admin-profile');
-          } else if (user_data.role  === 'jobseeker') {
+          } else if (user_data.role  === 'job-seeker') {
             navigate('/jobseeker-profile');
           } else if (user_data.role  === 'employer') {
             navigate('/employers-profile');
