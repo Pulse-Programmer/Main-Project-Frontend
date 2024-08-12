@@ -1,43 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { nextCard, prevCard } from '../../../redux/actions'; // Use nextCard and prevCard here
+import { nextCard, prevCard } from '../../../redux/actions';
 import "../../../CSS/employer/employer.css";
 
 function AvailableEmployersAdmin() {
-  // Sample data for employers
-  const employers = [
-    {
-      id: 1,
-      name: "John Doe",
-      profilePic: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      profilePic: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: 3,
-      name: "Michael Johnson",
-      profilePic: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: 4,
-      name: "Emily Davis",
-      profilePic: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: 5,
-      name: "David Brown",
-      profilePic: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    
-  ];
-
+  const [employers, setEmployers] = useState([]);
   const startIndex = useSelector((state) => state.startIndex);
   const itemsPerPage = useSelector((state) => state.itemsPerPage);
-  const totalItems = useSelector((state) => state.totalItems);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Fetch data from backend
+    const fetchEmployers = async () => {
+      try {
+        const response = await fetch('/api/employers'); // Replace with your API endpoint
+        const data = await response.json();
+        setEmployers(data);
+      } catch (error) {
+        console.error('Error fetching employers:', error);
+      }
+    };
+
+    fetchEmployers();
+  }, []);
+
+  const totalItems = employers.length;
 
   const handleNext = () => {
     dispatch(nextCard());
@@ -53,12 +40,12 @@ function AvailableEmployersAdmin() {
         <h4 className="h4a text-success">Available Employers</h4>
         <p className="p4a">
           Browse through the profiles of available employers who are looking for new opportunities. <br />
-          Click on "View my profile" to learn more about each candidate or remove them from the list if necessary.
+          Click on "View Profile" to learn more about each candidate or remove them from the list if necessary.
         </p>
       </div>
       <div className="row">
         {employers.slice(startIndex, startIndex + itemsPerPage).map((employer) => (
-          <div key={employer.id} className="card text-bg-primary mb-3 col-4 card4a">
+          <div key={employer.id} className="card mb-3 col-4 card4a">
             <div className="card-body">
               <div className="d-flex flex-column align-items-center">
                 <img

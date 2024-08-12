@@ -19,8 +19,8 @@ function App() {
           r.json().then((user_data) =>{ setUser(user_data)
             if (user_data.role === 'admin') {
               navigate('/admin-profile');
-            } else if (user_data.role  === 'jobseeker') {
-              navigate('/jobseeker-profile');
+            // } else if (user_data.role  === 'jobseeker') {
+            //   navigate('/jobseeker-profile');
             } else if (user_data.role  === 'employer') {
               navigate('/employers-profile');
             }

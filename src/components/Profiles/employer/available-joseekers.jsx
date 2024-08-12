@@ -54,20 +54,17 @@ function Availablejobseekrs() {
   };
 
   const displayedJobseekers = [
-    jobseekers[(startIndex + 0) % jobseekers.length],
+    jobseekers[startIndex % jobseekers.length],
     jobseekers[(startIndex + 1) % jobseekers.length],
     jobseekers[(startIndex + 2) % jobseekers.length]
   ];
 
   return (
-    <div>
-      <div className="row">
-        <div className="previousicon" onClick={handlePrevClick}>
-          <img className="icon2" src="https://img.icons8.com/?size=100&id=26144&format=png&color=000000" alt="previous" />
-        </div>
-        <h4 className="h41">Available jobseekers</h4>
+    <div className="emjobseeker">
+      <h4 className="h41">Available jobseekers</h4>
+      <div className="row row2">
         {displayedJobseekers.map((jobseeker, index) => (
-          <div key={index} className="card col-4 jobcards border-secondary mb-3">
+          <div key={jobseeker.name} className="card col-4 jobcards border-secondary mb-3">
             <div className="pic">
               <img className="src1" src={jobseeker.imgSrc} alt="profile-pic" />
               <div>
@@ -80,14 +77,19 @@ function Availablejobseekrs() {
               <p className="card-text">{jobseeker.description}</p>
             </div>
             <div>
-              <button type="button" className="btn contact btn-success">contact me</button>
-              <button type="button" className="btn view btn-success">view my profile</button>
+              <button type="button" className="btn contact btn-success">Contact Me</button>
+              <button type="button" className="btn view btn-success">View My Profile</button>
             </div>
           </div>
         ))}
-        <div className="nexticon" onClick={handleNextClick}>
-          <img className="icon1" src="https://img.icons8.com/?size=100&id=26138&format=png&color=000000" alt="next" />
-        </div>
+      </div>
+      <div className="navigation-buttons">
+        <button className="btn btn-secondary previous-btn" onClick={handlePrevClick}>
+          Previous
+        </button>
+        <button className="btn btn-secondary next-btn" onClick={handleNextClick}>
+          Next
+        </button>
       </div>
     </div>
   );

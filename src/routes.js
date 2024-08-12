@@ -4,6 +4,7 @@ import SignUp from './components/signups/SignUp'
 import JobSeekerProfile from './components/Profiles/JobSeekerProfile'
 import EmployersProfile from './components/Profiles/EmployersProfile'
 import AdminProfile from './components/Profiles/AdminProfile'
+import FormComponent from './components/Profiles/employer/input'
 
 // const routes = [
 //     {
@@ -49,6 +50,7 @@ const routes = [
         { path: "/admin-profile", element: <AdminProfile /> },
         { path: "/", element: <Login /> },
         { path: "/signup", element: <SignUp /> },
+        { path: "/company-form", element: <FormComponent /> },
       ],
     },
   ]

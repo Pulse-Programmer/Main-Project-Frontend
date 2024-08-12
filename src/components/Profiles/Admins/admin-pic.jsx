@@ -1,20 +1,62 @@
-import React from "react";
-import '../../../CSS/employer/employer.css'
+import React, { useState } from "react";
+import '../../../CSS/employer/employer.css';
+import { useOutletContext, useNavigate } from "react-router-dom";
+function Adminpic() {
 
+    const [profilePic, setProfilePic] = useState("https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600");
+    const [isEditing, setIsEditing] = useState(false);
+    const { user, setUser } = useOutletContext();
+    const navigate = useNavigate();
 
+    function handleLogoutClick() {
+        fetch("/logout", { method: "DELETE" })
+          .then((r) => {
+            if (r.ok) {
+              setUser(null);
+            }
+          })
+          .then(() => navigate("/"));
+      }
 
-function Adminpic(){
-    return(
+    const handlePicChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setProfilePic(e.target.result);
+                setIsEditing(false); // Automatically close edit mode after selecting a new image
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const toggleEdit = () => {
+        setIsEditing(!isEditing);
+    };
+
+    return (
         <div className="profilepic">
-            <h1></h1>
             <div className="pic">
-                <img className="src" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600" alt="profile-pic" />
+                <img className="src" src={profilePic} alt="profile-pic" onClick={toggleEdit} />
             </div>
+            {isEditing && (
+                <div>
+                    <input
+                        type="file"
+                        onChange={handlePicChange}
+                        accept="image/*"
+                        className="pic-input"
+                    />
+                </div>
+            )}
             <div>
-                <h1 className="name">John Doe</h1>
-                <h4 className="compname">RoamTech Technologies</h4>
+            <h1 className="name text-success">{user.username}</h1>
+            <button onClick={handleLogoutClick} className="bg-danger">
+          Log Out
+        </button>
             </div>
         </div>
-    )
+    );
 }
-export default Adminpic;  //exporting the component
+
+export default Adminpic;

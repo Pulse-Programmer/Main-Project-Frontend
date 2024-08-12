@@ -55,8 +55,8 @@ const Login = () => {
   return (
     <div className="login">
       <div>
-        <h1 className="h1">Welcome back!</h1>
-        <p className="p1">Sign in to view your profile</p>
+        <h1 className="h1 text-success">Welcome back!</h1>
+        <p className="p1 text-">Sign in to view your profile</p>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3 input">
@@ -82,7 +82,7 @@ const Login = () => {
           />
         </div>
         <div className="mb-3 input">
-          <select className="form" value={role} onChange={handleRoleChange} required>
+          <select className="form " value={role} onChange={handleRoleChange} required>
             <option value="" disabled>Select your role</option>
             <option value="admin">Admin</option>
             <option value="jobseeker">Job Seeker</option>

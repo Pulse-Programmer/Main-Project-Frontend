@@ -56,7 +56,7 @@ function AvailablejobseekrsAdmin() {
       </div>
       <div className="row">
         {jobSeekers.slice(startIndex, startIndex + 3).map((jobSeeker) => (
-          <div key={jobSeeker.id} className="card text-bg-primary mb-3 col-4 card4a">
+          <div key={jobSeeker.id} className="card  mb-3 col-4 card4a">
             <div className="card-body">
               <div className="d-flex flex-column align-items-center">
                 <img
