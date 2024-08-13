@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { useOutletContext, useNavigate} from 'react-router-dom';
 import '../../CSS/jobseeker-css/jobseeker.css'
 
@@ -19,6 +19,16 @@ function JobSeekerProfile() {
     salary_expectation:'',
     
   });
+
+  useEffect(() => {
+    // Fetch user profile if available
+    const fetchProfiles = async () => {
+      const response = await fetch(`/jobseekers?user_id=${user.id}`);
+      const data = await response.json();
+      setProfiles(data);
+    };
+    fetchProfiles();
+  }, [user.id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -140,7 +150,7 @@ function JobSeekerProfile() {
     };
 
     try {
-      const response = await fetch(`/jobseekers/<int:id>`, {
+      const response = await fetch(`/jobseekers/${profileId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
