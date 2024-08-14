@@ -1,0 +1,222 @@
+.profilepic{
+    height: 25vh;
+    background-image: url('https://images.pexels.com/photos/235985/pexels-photo-235985.jpeg?auto=compress&cs=tinysrgb&w=600');
+    background-size: cover; /* or 'contain', or specific sizes like '100px 100px' */
+    background-repeat: no-repeat; /* or 'repeat', 'repeat-x', 'repeat-y' */
+    background-position: center center; /* or any other position like 'top left', '50% 50%' */
+    background-attachment: fixed;
+    display: flex;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2vh;
+
+}
+.src{
+    border-radius: 50%;
+    height: 200px ;
+    width: 200px;
+    margin-top: 20vh;
+    margin-left: 7vh;
+}
+.name{
+    margin-top: 25vh;
+    margin-left: 2vh;
+    font-size: 4.5rem;
+    color: rgb(3, 102, 3);
+}
+.compname{
+    font-size: 3vh;
+    color: rgb(128, 128, 128);
+}
+
+/* history services page */
+.history{
+    height: 30vh;
+    width: 80%;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 18vh;
+    
+}
+.card {
+    margin-top: 10vh;
+    border-radius: 2vh;
+    width: 100%;
+    padding: 20px;
+    transition: transform 0.5s ease-in-out;
+
+    height: 400px; /* Set the desired height here */
+
+    
+  }
+  /* imputs css */
+
+
+  /* .form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+   */
+
+
+  
+  /* Align text to the left */
+  .card-body {
+    text-align: left;
+  }
+  /* delete and edit icons */
+.icons{
+    margin-left: 80%;
+    
+}
+.emjobseeker{
+  margin-top: 18vh;
+}
+.row2{
+  margin-left: 20vh;
+
+
+  
+
+}
+/* EDIT AND LOG OUT BUTTONS */
+.EDIT{
+  margin-left: 5vh;
+  margin-top: 5vh;
+}
+.logout{
+  margin-top: 5vh;
+}
+
+
+
+.edit{
+    margin-left: 10%;
+    width: 5vh;
+    cursor: pointer;
+}
+/* available job seeker */
+.h41{
+    margin-top: 29vh;
+    font-size: 5vh;
+    color: rgb(3, 102, 3);
+}
+.jobcards{
+    width: 25%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    margin-left: 5vh;
+   
+    border-radius: 2vh;
+
+
+    
+}
+.src1{
+    border-radius: 50%;
+    height: 130px ;
+    width: 130px;
+    margin-top: vh;
+    
+}
+.previous-btn, .next-btn {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+.pic{
+    display: flex;
+    
+}
+.contact{
+    margin-right: 10vh;
+}
+.nexticon {
+    position: absolute; /* or relative, depending on your layout needs */
+    right: 0;
+    top: 50%; /* adjust as necessary to center vertically */
+    transform: translateY(-50%);
+  }
+  .previousicon {
+    position: absolute; /* or relative, depending on your layout needs */
+    right: 0;
+    top: 50%; /* adjust as necessary to center vertically */
+    transform: translateY(-50%);
+  }
+  .icon1{
+    margin-left: 180vh;
+    margin-top: 22vh;
+  }
+  .icon2{
+    margin-right: 170vh ;
+    margin-top: 22vh;
+  }
+  .row {
+    position: relative;
+    display: flex;
+    align-items: center;
+  
+  }
+
+  /* admins page */
+  /* jobsekers */
+
+  .large-text {
+    font-size: 2rem; /* Adjust the size as needed */
+  }
+  
+
+/* media Querry */
+/* @media (min-width: 576px){
+ .src{
+  width: 100px;
+  height: 100px;
+ }
+
+} */
+
+
