@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../../../CSS/employer/employer.css";
+import { useOutletContext } from 'react-router-dom';
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const FormComponent = () => {
     services_offered: ''
   });
   const navigate = useNavigate();
+  const { user } = useOutletContext();
 
   const handleChange = (e) => {
     setFormData({
@@ -21,7 +23,7 @@ const FormComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/employers', {
+      const response = await fetch(`/employers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -69,8 +69,8 @@ const SignUp = () => {
 
   return (
     <div className="signup">
-      <h1 className='h1'>Welcome!</h1>
-      <p className='p1'>Create your profile</p>
+      <h1 className='h1 text-success'>Welcome!</h1>
+      <p className='p1 text-secondary'>Create your profile</p>
       <form onSubmit={handleSubmit}>
         <div className='mb-3 input'>
           <input 
