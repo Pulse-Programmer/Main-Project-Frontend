@@ -11,6 +11,7 @@ function JobSeekerProfile() {
   const [formValues, setFormValues] = useState({
     // name: '',
     work_experience: '',
+    // job_category:'',
     education: '',
     skills: '',
     bio: '',
@@ -49,16 +50,18 @@ function JobSeekerProfile() {
     const profileData = {
       // name: formValues.name,
       work_experience: formValues.work_experience,
+      // job_category: formValues.job_category,
       education: formValues.education,
       skills: formValues.skills,
       bio: formValues.bio,
       salary_expectation: parseFloat(formValues.salary_expectation),
       // resume_file: formValues.resume_file,
+      prof_pic: profpic ? URL.createObjectURL(profpic): null,
     };
 
     try {
       const response = profile
-        ? await fetch(`/jobseekers/${profile.id}`, {
+        ? await fetch(`/jobseekers/${user.id}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -83,6 +86,7 @@ function JobSeekerProfile() {
       setFormValues({
         // name: '',
         work_experience: '',
+        // job_category:'',
         education: '',
         skills: '',
         bio: '',
@@ -92,6 +96,31 @@ function JobSeekerProfile() {
       setProfpic(null);
     } catch (error) {
       console.error('Error saving profile:', error);
+    }
+  };
+
+  const handleDeleteProfile = async () => {
+    try {
+      const response = await fetch(`/jobseekers/${user.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
+      }
+
+      setProfile(null);
+      setFormValues({
+        work_experience: '',
+        education: '',
+        skills: '',
+        bio: '',
+        salary_expectation: '',
+      });
+      setProfpic(null);
+    } catch (error) {
+      console.error('Error deleting profile:', error);
     }
   };
 
@@ -213,12 +242,25 @@ function JobSeekerProfile() {
             {profile ? 'Update Profile' : 'Save Profile'}
           </button>
         </form>
+        {profile && (
+          <button onClick={handleDeleteProfile} className="save-button">
+            Delete Profile
+          </button>
+        )}
       </div>
       <br />
       {profile && (
         <div className="authic-page">
           <div className="profile-card">
+            {profile.prof_pic && (
+              <img
+                src={profile.prof_pic}
+                alt="Profile Preview"
+                className="profile-picture"
+              />
+            )}
             <h3>{user.username}</h3>
+            {/* <p>Name: {profile.name}</p> */}
             <p>Experience: {profile.work_experience}</p>
             {/* <p>Job Category: {profile.job_category}</p> */}
             <p>Education: {profile.education}</p>
