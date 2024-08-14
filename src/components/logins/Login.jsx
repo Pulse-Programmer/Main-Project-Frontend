@@ -5,20 +5,18 @@ import { useNavigate , useOutletContext} from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handleRoleChange = (e) => setRole(e.target.value);
 
-  const {setUser} = useOutletContext()
+  const { setUser } = useOutletContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Prepare the data to be sent to the backend
-    const data = { email, password, role };
+    const data = { email, password };
 
     try {
       const response = await fetch('/login', { // Replace with your backend URL
@@ -32,23 +30,26 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
-         setUser(result)
-          if (result.role === 'admin') {
-            navigate('/admin-profile');
-          } else if (result.role  === 'jobseeker') {
-            navigate('/jobseeker-profile');
-          } else if (result.role  === 'employer') {
-            navigate('/employers-profile');
-          }
-        
-      
+        setUser(result);
+        // Check the role in the result for navigation
+        if (result.role === 'admin') {
+          navigate('/admin-profile');
+        } else if (result.role === 'jobseeker') {
+          navigate('/jobseeker-profile');
+        } else if (result.role === 'employer') {
+          navigate('/employers-profile');
+        } else {
+          // Handle cases where role might be undefined or not expected
+          navigate('/default-profile'); // Change to a default profile route if needed
+        }
       } else {
         // Handle errors (e.g., show a message to the user)
-        console.error(result.message);
+        alert(result.message || 'Invalid credentials. Please try again.');
       }
     } catch (error) {
       // Handle network or other errors
       console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
     }
   };
 
@@ -56,7 +57,7 @@ const Login = () => {
     <div className="login">
       <div>
         <h1 className="h1 text-success">Welcome back!</h1>
-        <p className="p1 text-">Sign in to view your profile</p>
+        <p className="p1">Sign in to view your profile</p>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3 input">
@@ -80,14 +81,6 @@ const Login = () => {
             onChange={handlePasswordChange}
             required
           />
-        </div>
-        <div className="mb-3 input">
-          <select className="form " value={role} onChange={handleRoleChange} required>
-            <option value="" disabled>Select your role</option>
-            <option value="admin">Admin</option>
-            <option value="jobseeker">Job Seeker</option>
-            <option value="employer">Employer</option>
-          </select>
         </div>
         <div className="h4">
           <a href="#">Forgot your Password?</a>

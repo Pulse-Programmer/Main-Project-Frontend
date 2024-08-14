@@ -1,7 +1,7 @@
 
 import './App.css';
 import { useNavigate, Outlet } from 'react-router-dom';
-import Login from './components/logins/Login';
+// import Login from './components/logins/Login';
 import { useState, useEffect } from 'react';
 
 // import Welcomepage from './components/landing';
