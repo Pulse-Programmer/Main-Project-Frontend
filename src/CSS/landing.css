@@ -1,0 +1,100 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css");
+.landing{
+    background: linear-gradient(to bottom, #9B46C2, #9969BB,#9796B1,#94CAA6);
+    height: 100vh;
+    
+
+}
+.h1{
+    text-align: center;
+    font-size: 12vh;
+    padding-top: 10vh;
+    color: #21755C ;
+}
+.p1{
+    text-align: center;
+    font-size: 4vh;
+    color: rgb(199, 199, 199);
+}
+.row{
+    margin-top: 10vh;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.icon{
+    width: 23vh;
+}
+.icon-name{
+    font-size: 4vh;
+    font-weight: 400; 
+}
+.btn1{
+    font-size: 3vh;
+    margin-top: 2vh;
+    
+}
+
+/* Media Query */
+ 
+@media (min-width: 576px){
+    .landing{
+        
+        height: 180vh;
+    }
+    .h1{
+        font-size: 6vh;
+     
+    }
+    .p1{
+        font-size: 3vh;
+    }
+    .wel{
+        margin-top: 3vh;
+        padding-top: 3vh;
+    }
+
+}
+@media (min-width: 768px){
+    .landing{
+        height: 140vh;
+       
+    }
+    .h1{
+        font-size: 8vh;
+        padding-top: 10vh;
+    }
+    .wel{
+        margin-top: 1vh;
+        padding-top: 3vh;
+    }
+    .p1{
+        font-size: 3vh;
+    }
+}
+@media (min-width: 992px){
+    .landing{
+        height: 140vh;
+        
+    }
+    .h1{
+        font-size: 10vh;
+        padding-top: 10vh;
+    }
+    .wel{
+        margin-top: 1vh;
+        padding-top: 3vh;
+    }
+    .p1{
+        font-size: 4vh;
+    }
+}
+@media (min-width: 1200px){
+    .landing{
+        height: 100vh;
+        
+    }
+    .h1{
+        font-size: 10vh;
+    }
+} 

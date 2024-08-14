@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useNavigate, Outlet } from 'react-router-dom';
+import Login from './components/logins/Login';
+import { useState, useEffect } from 'react';
+
+// import Welcomepage from './components/landing';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  let navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // auto-login
+    fetch("/check_session")
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((user_data) =>{ setUser(user_data)
+            if (user_data.role === 'admin') {
+              navigate('/admin-profile');
+            // } else if (user_data.role  === 'jobseeker') {
+            //   navigate('/jobseeker-profile');
+            } else if (user_data.role  === 'employer') {
+              navigate('/employers-profile');
+            }
+          })
+        }
+        
+      }
+    )
+      
+  }, []);
+
+  // if (!user) return <Login onLogin={setUser} />;
+ 
+    console.log(user);
+  
+    return (
+      <div className="App">
+        <Outlet context={{ user, setUser }} />
+      </div>
+    );
+  
 }
 
 export default App;
