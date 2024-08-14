@@ -2,7 +2,9 @@
 import { NEXT_CARD, PREV_CARD } from './actions';
 
 const initialState = {
-  startIndex: 0
+  startIndex: 0,
+  itemsPerPage: 3,
+  totalItems: 6, // Adjust based on your actual data length or make it dynamic
 };
 
 const jobseekerReducer = (state = initialState, action) => {
@@ -10,12 +12,12 @@ const jobseekerReducer = (state = initialState, action) => {
     case NEXT_CARD:
       return {
         ...state,
-        startIndex: (state.startIndex + 1) % 5  // Assume there are 5 jobseekers
+        startIndex: Math.min(state.startIndex + state.itemsPerPage, state.totalItems - state.itemsPerPage),
       };
     case PREV_CARD:
       return {
         ...state,
-        startIndex: (state.startIndex - 1 + 5) % 5
+        startIndex: Math.max(state.startIndex - state.itemsPerPage, 0),
       };
     default:
       return state;
