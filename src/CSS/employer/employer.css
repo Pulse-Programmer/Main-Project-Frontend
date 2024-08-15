@@ -53,7 +53,7 @@
   /* imputs css */
 
 
-  /* .form-container {
+  .form-container {
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
@@ -62,10 +62,9 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  .form-group {
+   .form-group {
     margin-bottom: 15px;
-  }
-  
+  } 
   .form-group label {
     display: block;
     margin-bottom: 5px;
@@ -84,7 +83,7 @@
     resize: vertical;
   }
   
-  button {
+  .inputbutton {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -95,11 +94,9 @@
     font-size: 16px;
   }
   
-  button:hover {
+ .inputbutton:hover {
     background-color: #0056b3;
-  }
-   */
-
+  } 
 
   
   /* Align text to the left */

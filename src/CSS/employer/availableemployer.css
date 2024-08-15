@@ -1,59 +1,26 @@
-.employer-list {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .employer-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .employer-item span {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #fff;
-  }
-  
-  button:hover {
-    opacity: 0.9;
-  }
-  
-  button:first-of-type {
-    background-color: #007bff;
-    margin-right: 10px;
-  }
-  
-  button:last-of-type {
-    background-color: #dc3545;
-  }
-  
+.employers-list{
+  margin-top: 18vh;
+  width: 80vh;
+  margin-left: 10vh;
+
+}
+.ul{
+
+}
+.employer-item{
+  display: flex;
+  border: 1px solid black;
+  border-radius: 1vh;
+  justify-content: space-between;
+  margin-top: 2vh;
+}
+.actions{
+  margin-right: 1vh;
+  padding: 1vh;
+}
+.V{
+  margin-right: 2vh;
+}
+
+
+
