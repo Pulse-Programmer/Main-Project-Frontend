@@ -242,11 +242,6 @@ function JobSeekerProfile() {
             {profile ? 'Update Profile' : 'Save Profile'}
           </button>
         </form>
-        {profile && (
-          <button onClick={handleDeleteProfile} className="save-button">
-            Delete Profile
-          </button>
-        )}
       </div>
       <br />
       {profile && (
@@ -269,7 +264,11 @@ function JobSeekerProfile() {
             <p>Salary Expectation: {profile.salary_expectation}</p>
             {/* <p>Resume: {profile.resume_file}</p> */}
           </div>
+          <button onClick={handleDeleteProfile} className="save-button">
+            Delete Profile
+          </button>
         </div>
+        
       )}
     </div>
   );
