@@ -50,12 +50,12 @@ const AvailableEmployersAdmin = () => {
   };
 
   return (
-    <div className="employers-list">
+    <div className="jobseekers-list">
       <h2 className='text-success'>Available Employers</h2>
       {employers.length > 0 ? (
         <ul className='ul'>
           {employers.map((employer) => (
-            <li key={employer.id} className="employer-item">
+            <li key={employer.id} className="jobseeker-item">
               <span className="employer-info">
                 <strong>Username:</strong> {employer.user.username} <br />
                 <strong>Company Name:</strong> {employer.company_name}

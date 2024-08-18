@@ -1,0 +1,41 @@
+/* Custom styles for the job seekers list */
+.top{
+    margin-top: 25vh;
+}
+.jobseekers-list .list-group-item {
+    background-color: #f8ebeb;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    width: 80vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .jobseekers-list .list-group-item h5 {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .jobseekers-list .list-group-item p {
+    margin: 0;
+    color: #555;
+  }
+  
+  .jobseekers-list .list-group-item .btn {
+    min-width: 100px;
+  }
+  
+  .jobseekers-list .list-group-item .btn-primary {
+    margin-right: 10px;
+  }
+  
+  .jobseekers-list .btn {
+    transition: background-color 0.3s ease;
+  }
+  
+  .jobseekers-list .btn:hover {
+    background-color: #0056b3;
+  }
+  

@@ -9,7 +9,7 @@ function EmployersProfile (){
   const { user } = useOutletContext();
   if (user) {
   return(
-    <div className="bg-primary-subtle">
+    <div className="bg-primary-subtle ">
       <Profilepic />
       <History />
       <Availablejobseekrs/>
