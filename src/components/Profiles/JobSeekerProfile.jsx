@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
+import Navbar from './Navbar';
 import '../../CSS/jobseeker-css/jobseeker.css';
 
 function JobSeekerProfile() {
   const { user, setUser } = useOutletContext();
-  const navigate = useNavigate();
-
   const [profpic, setProfpic] = useState(null);
   const [profile, setProfile] = useState(null);
   const [formValues, setFormValues] = useState({
-    // name: '',
+    name: '',
     work_experience: '',
-    // job_category:'',
+    job_category: '',
     education: '',
     skills: '',
     bio: '',
     salary_expectation: '',
-    // resume_file: '',
+    resume_file: '',
   });
+  const [isEditing, setIsEditing] = useState(true);
+  const [contactRequests, setContactRequests] = useState([]);
+  const [viewingMessages, setViewingMessages] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -26,13 +28,27 @@ function JobSeekerProfile() {
         if (!response.ok) throw new Error('Failed to fetch profile');
         const data = await response.json();
         setProfile(data);
+        setIsEditing(false);
       } catch (error) {
         console.error('Error fetching profile:', error);
       }
     };
 
+    const fetchContactRequests = async () => {
+      try {
+        const response = await fetch(`/contact_requests/${1}`);
+        if (!response.ok) throw new Error('Failed to fetch contact requests');
+        const data = await response.json();
+        // Ensure contactRequests is an array
+        setContactRequests(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching contact requests:', error);
+      }
+    };
+
     if (user?.id) {
       fetchProfile();
+      fetchContactRequests();
     }
   }, [user?.id]);
 
@@ -48,15 +64,15 @@ function JobSeekerProfile() {
   const handleAddOrUpdateProfile = async (e) => {
     e.preventDefault();
     const profileData = {
-      // name: formValues.name,
+      name: formValues.name,
       work_experience: formValues.work_experience,
-      // job_category: formValues.job_category,
+      job_category: formValues.job_category,
       education: formValues.education,
       skills: formValues.skills,
       bio: formValues.bio,
       salary_expectation: parseFloat(formValues.salary_expectation),
-      // resume_file: formValues.resume_file,
-      prof_pic: profpic ? URL.createObjectURL(profpic): null,
+      resume_file: formValues.resume_file,
+      prof_pic: profpic ? URL.createObjectURL(profpic) : null,
     };
 
     try {
@@ -84,16 +100,17 @@ function JobSeekerProfile() {
       const updatedProfile = await response.json();
       setProfile(updatedProfile);
       setFormValues({
-        // name: '',
+        name: '',
         work_experience: '',
-        // job_category:'',
+        job_category: '',
         education: '',
         skills: '',
         bio: '',
         salary_expectation: '',
-        // resume_file: '',
+        resume_file: '',
       });
       setProfpic(null);
+      setIsEditing(false);
     } catch (error) {
       console.error('Error saving profile:', error);
     }
@@ -112,26 +129,24 @@ function JobSeekerProfile() {
 
       setProfile(null);
       setFormValues({
+        name: '',
+        job_category: '',
         work_experience: '',
         education: '',
         skills: '',
         bio: '',
         salary_expectation: '',
+        resume_file: '',
       });
       setProfpic(null);
+      setIsEditing(true);
     } catch (error) {
       console.error('Error deleting profile:', error);
     }
   };
 
-  const handleLogoutClick = () => {
-    fetch('/logout', { method: 'DELETE' })
-      .then((r) => {
-        if (r.ok) {
-          setUser(null);
-        }
-      })
-      .then(() => navigate('/'));
+  const toggleViewMessages = () => {
+    setViewingMessages(!viewingMessages);
   };
 
   if (!user) {
@@ -140,136 +155,158 @@ function JobSeekerProfile() {
 
   return (
     <div className="authict-page">
+      <Navbar setUser={setUser} />  
       <h2>Job Seeker Profile</h2>
       <div className="authic-page">
-        <form className="profile-form" onSubmit={handleAddOrUpdateProfile}>
-          <div className="profile-header">
-            <h3>{user.username}</h3>
-            <input
-              className="hidden-input"
-              type="file"
-              name="profilePicture"
-              onChange={handleProfilePictureChange}
-            />
-            {profpic && (
-              <img
-                src={URL.createObjectURL(profpic)}
-                alt="Profile Preview"
-                className="profile-picture"
+        {viewingMessages ? (
+          <div className="contact-requests">
+            <h3>Contact Requests</h3>
+            <ul className='profile-card'>
+              {contactRequests.map((request) => (
+                <li key={request.id}>
+                  <p>{request.message}</p>
+                  <small>From: {request.employerName}</small>
+                </li>
+              ))}
+            </ul>
+            <button onClick={toggleViewMessages} className="save-button">
+              Back to Profile
+            </button>
+          </div>
+        ) : isEditing ? (
+          <form className="profile-form" onSubmit={handleAddOrUpdateProfile}>
+            <div className="profile-header">
+              <h3>{user.username}</h3>
+              <input
+                className="hidden-input"
+                type="file"
+                name="profilePicture"
+                onChange={handleProfilePictureChange}
               />
-            )}
-            <button onClick={handleLogoutClick}>Logout</button>
-          </div>
-          {/* <div className="profile-card">
-            <input
-              className="card-content"
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={formValues.name}
-              onChange={handleInputChange}
-            />
-          </div> */}
-          <div className="profile-card">
-            <textarea
-              className="card-content"
-              name="work_experience"
-              placeholder="Experience"
-              value={formValues.work_experience}
-              onChange={handleInputChange}
-            />
-          </div>
-          {/* <div className="profile-card">
-            <textarea
-              className="card-content"
-              name="job_category"
-              placeholder="Job Category"
-              value={formValues.job_category}
-              onChange={handleInputChange}
-            />
-          </div> */}
-          <div className="profile-card">
-            <textarea
-              className="card-content"
-              name="education"
-              placeholder="Education"
-              value={formValues.education}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="profile-card">
-            <textarea
-              className="card-content"
-              name="skills"
-              placeholder="Skills"
-              value={formValues.skills}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="profile-card">
-            <textarea
-              className="card-content"
-              name="bio"
-              placeholder="Bio"
-              value={formValues.bio}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="profile-card">
-            <input
-              className="card-content"
-              type="number"
-              name="salary_expectation"
-              placeholder="Salary Expectation"
-              value={formValues.salary_expectation}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          {/* <div className="profile-card">
-            <input
-              className="card-content"
-              name="resume_file"
-              placeholder="Resume File URL"
-              value={formValues.resume_file}
-              onChange={handleInputChange}
-            />
-          </div> */}
-          <button type="submit" className="save-button">
-            {profile ? 'Update Profile' : 'Save Profile'}
-          </button>
-        </form>
+              {profpic && (
+                <img
+                  src={URL.createObjectURL(profpic)}
+                  alt="Profile Preview"
+                  className="profile-picture"
+                />
+              )}
+            </div>
+            <div className="profile-card">
+              <input
+                className="card-content"
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                value={formValues.name}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="profile-card">
+              <textarea
+                className="card-content"
+                name="work_experience"
+                placeholder="Experience"
+                value={formValues.work_experience}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="profile-card">
+              <textarea
+                className="card-content"
+                name="job_category"
+                placeholder="Job Category"
+                value={formValues.job_category}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="profile-card">
+              <textarea
+                className="card-content"
+                name="education"
+                placeholder="Education"
+                value={formValues.education}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="profile-card">
+              <textarea
+                className="card-content"
+                name="skills"
+                placeholder="Skills"
+                value={formValues.skills}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="profile-card">
+              <textarea
+                className="card-content"
+                name="bio"
+                placeholder="Bio"
+                value={formValues.bio}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="profile-card">
+              <input
+                className="card-content"
+                type="number"
+                name="salary_expectation"
+                placeholder="Salary Expectation"
+                value={formValues.salary_expectation}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="profile-card">
+              <input
+                className="card-content"
+                name="resume_file"
+                placeholder="Resume File URL"
+                value={formValues.resume_file}
+                onChange={handleInputChange}
+              />
+            </div>
+            <button type="submit" className="save-button">
+              {profile ? 'Update Profile' : 'Save Profile'}
+            </button>
+          </form>
+        ) : (
+          profile && (
+            <div className="authic-page">
+              <div className="profile-card">
+                {profile.prof_pic && (
+                  <img
+                    src={profile.prof_pic}
+                    alt="Profile Preview"
+                    className="profile-picture"
+                  />
+                )}
+                <h3>{user.username}</h3>
+                <p>Name: {profile.name}</p>
+                <p>Experience: {profile.work_experience}</p>
+                <p>Job Category: {profile.job_category}</p>
+                <p>Education: {profile.education}</p>
+                <p>Skills: {profile.skills}</p>
+                <p>Bio: {profile.bio}</p>
+                <p>Salary Expectation: {profile.salary_expectation}</p>
+                <p>Resume: {profile.resume_file}</p>
+              </div>
+              <button onClick={handleDeleteProfile} className="delete-button">
+                Delete Profile
+              </button>
+              <button onClick={() => setIsEditing(true)} className="save-button">
+                Edit Profile
+              </button>
+              <button onClick={toggleViewMessages} className="save-button">
+                View Messages
+              </button>
+            </div>
+          )
+        )}
       </div>
-      <br />
-      {profile && (
-        <div className="authic-page">
-          <div className="profile-card">
-            {profile.prof_pic && (
-              <img
-                src={profile.prof_pic}
-                alt="Profile Preview"
-                className="profile-picture"
-              />
-            )}
-            <h3>{user.username}</h3>
-            {/* <p>Name: {profile.name}</p> */}
-            <p>Experience: {profile.work_experience}</p>
-            {/* <p>Job Category: {profile.job_category}</p> */}
-            <p>Education: {profile.education}</p>
-            <p>Skills: {profile.skills}</p>
-            <p>Bio: {profile.bio}</p>
-            <p>Salary Expectation: {profile.salary_expectation}</p>
-            {/* <p>Resume: {profile.resume_file}</p> */}
-          </div>
-          <button onClick={handleDeleteProfile} className="save-button">
-            Delete Profile
-          </button>
-        </div>
-        
-      )}
     </div>
   );
 }
