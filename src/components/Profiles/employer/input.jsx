@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../../CSS/employer/employer.css";
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext } from "react-router-dom";
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
-    company_name: '',
-    history: '',
-    services_offered: ''
+    company_name: "",
+    history: "",
+    services_offered: "",
   });
   const navigate = useNavigate();
   const { user } = useOutletContext();
@@ -15,7 +15,7 @@ const FormComponent = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
   console.log(formData);
@@ -24,21 +24,21 @@ const FormComponent = () => {
     e.preventDefault();
     try {
       const response = await fetch(`/employers`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
       if (response.ok) {
-        console.log('Data submitted successfully');
+        console.log("Data submitted successfully");
         // Navigate to the employers page
-        navigate('/employers-profile');
+        navigate("/Main-Project-Frontend/employers-profile");
       } else {
-        console.error('Failed to submit data');
+        console.error("Failed to submit data");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -76,7 +76,9 @@ const FormComponent = () => {
             required
           />
         </div>
-        <button className='inputbutton' type="submit">Submit</button>
+        <button className="inputbutton" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

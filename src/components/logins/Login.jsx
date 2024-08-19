@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import '../../CSS/logins-css/login.css';
-import { useNavigate , useOutletContext} from 'react-router-dom';
+import "../../CSS/logins-css/login.css";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -19,10 +19,11 @@ const Login = () => {
     const data = { email, password };
 
     try {
-      const response = await fetch('/login', { // Replace with your backend URL
-        method: 'POST',
+      const response = await fetch("/login", {
+        // Replace with your backend URL
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -32,24 +33,24 @@ const Login = () => {
       if (response.ok) {
         setUser(result);
         // Check the role in the result for navigation
-        if (result.role === 'admin') {
-          navigate('/admin-profile');
-        } else if (result.role === 'job-seeker') {
-          navigate('/jobseeker-profile');
-        } else if (result.role === 'employer') {
-          navigate('/employers-profile');
+        if (result.role === "admin") {
+          navigate("/Main-Project-Frontend/admin-profile");
+        } else if (result.role === "job-seeker") {
+          navigate("/Main-Project-Frontend/jobseeker-profile");
+        } else if (result.role === "employer") {
+          navigate("/Main-Project-Frontend/employers-profile");
         } else {
           // Handle cases where role might be undefined or not expected
-          navigate('/default-profile'); // Change to a default profile route if needed
+          navigate("/Main-Project-Frontend/default-profile"); // Change to a default profile route if needed
         }
       } else {
         // Handle errors (e.g., show a message to the user)
-        alert(result.message || 'Invalid credentials. Please try again.');
+        alert(result.message || "Invalid credentials. Please try again.");
       }
     } catch (error) {
       // Handle network or other errors
-      console.error('Error:', error);
-      alert('An error occurred. Please try again later.');
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
     }
   };
 
@@ -86,11 +87,15 @@ const Login = () => {
           <a href="#">Forgot your Password?</a>
         </div>
         <div className="h4">
-          <button type="submit" className="btn btn2 btn-success">Login</button>
+          <button type="submit" className="btn btn2 btn-success">
+            Login
+          </button>
         </div>
       </form>
       <div className="up">
-        <p className="don">Don't have an account? <a href="/signup">Sign up</a> </p>
+        <p className="don">
+          Don't have an account? <a href="/signup">Sign up</a>{" "}
+        </p>
       </div>
     </div>
   );
