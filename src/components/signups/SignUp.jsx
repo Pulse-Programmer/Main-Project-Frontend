@@ -48,7 +48,7 @@ const SignUp = () => {
           console.log('User data:', user_data); // Debugging log
           if (user_data.role === 'admin') {
             navigate('/admin-profile');
-          } else if (user_data.role === 'jobseeker') { // Ensure the role matches the dropdown value
+          } else if (user_data.role === 'job-seeker') { // Ensure the role matches the dropdown value
             navigate('/jobseeker-profile');
           } else if (user_data.role === 'employer') {
             navigate('/employers-profile');
@@ -128,7 +128,7 @@ const SignUp = () => {
           <select className='form' value={role} onChange={handleRoleChange} required>
             <option value="" disabled>Select your role</option>
             <option value="admin">Admin</option>
-            <option value="jobseeker">Job Seeker</option>
+            <option value="job-seeker">Job Seeker</option>
             <option value="employer">Employer</option>
           </select>
         </div>

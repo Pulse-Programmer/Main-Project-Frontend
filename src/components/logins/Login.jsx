@@ -34,7 +34,7 @@ const Login = () => {
         // Check the role in the result for navigation
         if (result.role === 'admin') {
           navigate('/admin-profile');
-        } else if (result.role === 'jobseeker') {
+        } else if (result.role === 'job-seeker') {
           navigate('/jobseeker-profile');
         } else if (result.role === 'employer') {
           navigate('/employers-profile');
