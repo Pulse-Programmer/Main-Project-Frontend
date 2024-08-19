@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import '../../CSS/signups-css/signup.css'
+import '../../CSS/signups-css/signup.css';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-
 
 const SignUp = () => {
   const [role, setRole] = useState('');
@@ -12,7 +11,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const {setUser} = useOutletContext()
+  const { setUser } = useOutletContext();
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);
@@ -21,13 +20,11 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if passwords match
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-    // Create the data object to send to the backend
     const data = {
       username,
       email,
@@ -46,18 +43,18 @@ const SignUp = () => {
       });
 
       if (response.ok) {
-        response.json().then((user_data) =>{ setUser(user_data)
+        response.json().then((user_data) => {
+          setUser(user_data);
+          console.log('User data:', user_data); // Debugging log
           if (user_data.role === 'admin') {
             navigate('/admin-profile');
-          } else if (user_data.role  === 'jobseeker') {
+          } else if (user_data.role === 'job-seeker') { // Ensure the role matches the dropdown value
             navigate('/jobseeker-profile');
-          } else if (user_data.role  === 'employer') {
+          } else if (user_data.role === 'employer') {
             navigate('/employers-profile');
           }
-        })
-      
+        });
       } else {
-        // Handle errors
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
       }
@@ -68,7 +65,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup">
+    <div className="signup bg-light">
       <h1 className='h1 text-success'>Welcome!</h1>
       <p className='p1 text-secondary'>Create your profile</p>
       <form onSubmit={handleSubmit}>
