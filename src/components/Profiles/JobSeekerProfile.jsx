@@ -36,7 +36,7 @@ function JobSeekerProfile() {
 
     const fetchContactRequests = async () => {
       try {
-        const response = await fetch(`/contact_requests/${1}`);
+        const response = await fetch(`/contact_requests/${user.id}`);
         if (!response.ok) throw new Error('Failed to fetch contact requests');
         const data = await response.json();
         // Ensure contactRequests is an array
@@ -58,7 +58,14 @@ function JobSeekerProfile() {
   };
 
   const handleProfilePictureChange = (e) => {
-    setProfpic(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfpic(reader.result); // Set the data URL as the profile picture
+      };
+      reader.readAsDataURL(file); // Convert the file to a data URL
+    }
   };
 
   const handleAddOrUpdateProfile = async (e) => {
@@ -72,7 +79,7 @@ function JobSeekerProfile() {
       bio: formValues.bio,
       salary_expectation: parseFloat(formValues.salary_expectation),
       resume_file: formValues.resume_file,
-      prof_pic: profpic ? URL.createObjectURL(profpic) : null,
+      prof_pic: profpic, // Use the data URL
     };
 
     try {
@@ -185,7 +192,7 @@ function JobSeekerProfile() {
               />
               {profpic && (
                 <img
-                  src={URL.createObjectURL(profpic)}
+                  src={profpic} // Use the data URL for the image source
                   alt="Profile Preview"
                   className="profile-picture"
                 />
