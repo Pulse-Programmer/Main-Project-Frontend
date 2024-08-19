@@ -9,7 +9,7 @@ function AdminProfile (){
   const {user} = useOutletContext();
   if (user) {
     return(
-      <div>
+      <div className="bg-light">
   
         <Adminpic/>
         <AvailablejobseekrsAdmin/>

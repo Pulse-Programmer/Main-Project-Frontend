@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
+    <div className="login bg-light">
       <div>
         <h1 className="h1 text-success">Welcome back!</h1>
         <p className="p1">Sign in to view your profile</p>

@@ -65,7 +65,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup">
+    <div className="signup bg-light">
       <h1 className='h1 text-success'>Welcome!</h1>
       <p className='p1 text-secondary'>Create your profile</p>
       <form onSubmit={handleSubmit}>

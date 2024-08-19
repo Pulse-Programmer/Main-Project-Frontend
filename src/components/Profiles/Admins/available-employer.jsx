@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import '../../../CSS/employer/availableemployer.css';
-import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
+import Modal from '../employer/modal';
 
 const AvailableEmployersAdmin = () => {
   const [employers, setEmployers] = useState([]);
+  const [selectedEmployer, setSelectedEmployer] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const outletContext = useOutletContext();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployersData = async () => {
@@ -25,9 +27,9 @@ const AvailableEmployersAdmin = () => {
     fetchEmployersData();
   }, [outletContext]);
 
-  const handleViewEmployer = (id) => {
-    console.log('Navigating to employer with ID:', id);
-    navigate(`/employers-profile/${id}`); // Pass the employer ID in the route
+  const handleViewEmployer = (employer) => {
+    setSelectedEmployer(employer);
+    setIsModalOpen(true); // Open the modal
   };
 
   const handleRemoveEmployer = async (id) => {
@@ -49,6 +51,11 @@ const AvailableEmployersAdmin = () => {
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedEmployer(null);
+  };
+
   return (
     <div className="jobseekers-list">
       <h2 className='text-success'>Available Employers</h2>
@@ -63,7 +70,7 @@ const AvailableEmployersAdmin = () => {
               <div className="actions">
                 <button 
                   className='btn bg-primary V text-white' 
-                  onClick={() => handleViewEmployer(employer.id)}
+                  onClick={() => handleViewEmployer(employer)}
                 >
                   View
                 </button>
@@ -80,6 +87,22 @@ const AvailableEmployersAdmin = () => {
       ) : (
         <p>No employers found.</p>
       )}
+
+      {/* Use your Modal component */}
+      <Modal show={isModalOpen} onClose={handleCloseModal}>
+        {selectedEmployer && (
+          <>
+            <h3>Employer Details</h3>
+            <p><strong>Username:</strong> {selectedEmployer.user.username}</p>
+            <p><strong>Email:</strong> {selectedEmployer.user.email}</p>
+            <p><strong>Company Name:</strong> {selectedEmployer.company_name}</p>
+            <p><strong>Company history:</strong> {selectedEmployer.history}</p>
+            <p><strong>Company Services:</strong> {selectedEmployer.services_offered}</p>
+            
+            {/* Add more details as needed */}
+          </>
+        )}
+      </Modal>
     </div>
   );
 };

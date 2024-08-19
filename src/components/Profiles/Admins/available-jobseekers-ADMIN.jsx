@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import '../../../CSS/employer/availableemployer.css';
-import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
+import Modal from '../employer/modal';
 
 const AvailableJobseekersAdmin = () => {
   const [jobseekers, setJobseekers] = useState([]);
+  const [selectedJobseeker, setSelectedJobseeker] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const outletContext = useOutletContext();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJobseekersData = async () => {
@@ -25,9 +27,9 @@ const AvailableJobseekersAdmin = () => {
     fetchJobseekersData();
   }, [outletContext]);
 
-  const handleViewJobseeker = (id) => {
-    console.log('Navigating to jobseeker with ID:', id);
-    navigate(`/jobseeker-profile/${id}`); // Pass the jobseeker ID in the route
+  const handleViewJobseeker = (jobseeker) => {
+    setSelectedJobseeker(jobseeker);
+    setIsModalOpen(true); // Open the modal
   };
 
   const handleRemoveJobseeker = async (id) => {
@@ -49,6 +51,11 @@ const AvailableJobseekersAdmin = () => {
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedJobseeker(null);
+  };
+
   return (
     <div className="jobseekers-list">
       <h2 className='text-success'>Available Jobseekers</h2>
@@ -63,7 +70,7 @@ const AvailableJobseekersAdmin = () => {
               <div className="actions">
                 <button 
                   className='btn bg-primary V text-white' 
-                  onClick={() => handleViewJobseeker(jobseeker.id)}
+                  onClick={() => handleViewJobseeker(jobseeker)}
                 >
                   View
                 </button>
@@ -80,6 +87,20 @@ const AvailableJobseekersAdmin = () => {
       ) : (
         <p>No jobseekers found.</p>
       )}
+
+      {/* Use your Modal component */}
+      <Modal show={isModalOpen} onClose={handleCloseModal}>
+        {selectedJobseeker && (
+          <>
+            <h3>Jobseeker Details</h3>
+            <p><strong>Username:</strong> {selectedJobseeker.user.username}</p>
+            <p><strong>Email:</strong> {selectedJobseeker.user.email}</p>
+            <p><strong>Skills:</strong> {selectedJobseeker.skills}</p>
+            <p><strong>Experience:</strong> {selectedJobseeker.experience}</p>
+            {/* Add more details as needed */}
+          </>
+        )}
+      </Modal>
     </div>
   );
 };
