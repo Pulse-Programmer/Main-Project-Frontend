@@ -9,6 +9,14 @@
   overflow: hidden; /* Prevent overflow */
 }
 
+.authict-page h2 {
+  color: #992131;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+
+}
+
+
 .authic-page {
   width: 100%;
   max-width: 800px;
@@ -21,11 +29,57 @@
   overflow-y: auto; /* Add vertical scrollbar if content overflows */
 }
 
-.contact-requests{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.contact-requests {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
 }
+
+.contact-requests h3 {
+  color: #333;
+  margin-bottom: 16px;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.request-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.request-item {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s;
+}
+
+.request-item:hover {
+  background-color: #f0f0f0;
+}
+
+.request-message p {
+  margin: 0;
+  color: #555;
+  font-size: 1em;
+}
+
+.request-info {
+  margin-top: 10px;
+  color: #888;
+  font-size: 0.9em;
+}
+
+.request-info small {
+  display: block;
+}
+
 
 .profile-form {
   display: flex;

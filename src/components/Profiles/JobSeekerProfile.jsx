@@ -23,6 +23,7 @@ function JobSeekerProfile() {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      if (!user?.id) return;
       try {
         const response = await fetch(`/jobseekers/${user.id}`);
         if (!response.ok) throw new Error('Failed to fetch profile');
@@ -35,21 +36,21 @@ function JobSeekerProfile() {
     };
 
     const fetchContactRequests = async () => {
+      if (!user?.id) return;
       try {
-        const response = await fetch(`/contact_requests/${user.id}`);
+        const response = await fetch(`/jobseekers/${user.id}`);
         if (!response.ok) throw new Error('Failed to fetch contact requests');
         const data = await response.json();
-        // Ensure contactRequests is an array
-        setContactRequests(Array.isArray(data) ? data : []);
+        console.log(data.contact_requests)
+        setContactRequests(data.contact_requests);
+        console.log(contactRequests)
       } catch (error) {
         console.error('Error fetching contact requests:', error);
       }
     };
 
-    if (user?.id) {
-      fetchProfile();
-      fetchContactRequests();
-    }
+    fetchProfile();
+    fetchContactRequests();
   }, [user?.id]);
 
   const handleInputChange = (e) => {
@@ -62,24 +63,18 @@ function JobSeekerProfile() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfpic(reader.result); // Set the data URL as the profile picture
+        setProfpic(reader.result);
       };
-      reader.readAsDataURL(file); // Convert the file to a data URL
+      reader.readAsDataURL(file);
     }
   };
 
   const handleAddOrUpdateProfile = async (e) => {
     e.preventDefault();
     const profileData = {
-      name: formValues.name,
-      work_experience: formValues.work_experience,
-      job_category: formValues.job_category,
-      education: formValues.education,
-      skills: formValues.skills,
-      bio: formValues.bio,
+      ...formValues,
       salary_expectation: parseFloat(formValues.salary_expectation),
-      resume_file: formValues.resume_file,
-      prof_pic: profpic, // Use the data URL
+      prof_pic: profpic,
     };
 
     try {
@@ -162,17 +157,22 @@ function JobSeekerProfile() {
 
   return (
     <div className="authict-page">
-      <Navbar setUser={setUser} />  
+      <Navbar setUser={setUser} />
       <h2>Job Seeker Profile</h2>
       <div className="authic-page">
         {viewingMessages ? (
           <div className="contact-requests">
             <h3>Contact Requests</h3>
-            <ul className='profile-card'>
+            <ul className='request-list'>
               {contactRequests.map((request) => (
-                <li key={request.id}>
+                <li key={request.id} className='request-item'>
+                  <div className='request-message'>
                   <p>{request.message}</p>
-                  <small>From: {request.employerName}</small>
+                  </div>
+                  <div className='request-info'>
+                  {/* <small>From: {request.employer.company_name}</small> */}
+                  <small>{request.created_at}</small>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -192,7 +192,7 @@ function JobSeekerProfile() {
               />
               {profpic && (
                 <img
-                  src={profpic} // Use the data URL for the image source
+                  src={profpic}
                   alt="Profile Preview"
                   className="profile-picture"
                 />
@@ -233,7 +233,6 @@ function JobSeekerProfile() {
                 placeholder="Education"
                 value={formValues.education}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="profile-card">
@@ -243,7 +242,6 @@ function JobSeekerProfile() {
                 placeholder="Skills"
                 value={formValues.skills}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="profile-card">
@@ -253,7 +251,6 @@ function JobSeekerProfile() {
                 placeholder="Bio"
                 value={formValues.bio}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="profile-card">
@@ -264,7 +261,6 @@ function JobSeekerProfile() {
                 placeholder="Salary Expectation"
                 value={formValues.salary_expectation}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="profile-card">
