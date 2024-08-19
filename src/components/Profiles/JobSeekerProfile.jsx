@@ -36,15 +36,15 @@ function JobSeekerProfile() {
 
     const fetchContactRequests = async () => {
       try {
-        const response = await fetch(`/contact_requests/${user.id}`);
+        const response = await fetch(`/jobseekers/${user.id}`);
         if (!response.ok) throw new Error('Failed to fetch contact requests');
         const data = await response.json();
         // Ensure contactRequests is an array
-        console.log(data.contactRequests)
-        setContactRequests(data.contactRequests);
-        
+        console.log(data);
+        setContactRequests(data.contact_requests);
       } catch (error) {
         console.error('Error fetching contact requests:', error);
+        setContactRequests([]); // Set contactRequests to an empty array on error
       }
     };
 
@@ -152,24 +152,31 @@ function JobSeekerProfile() {
   };
 
   if (!user) {
-    return <div><h1>Loading...</h1></div>;
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
   }
 
   return (
     <div className="authict-page">
-      <Navbar setUser={setUser} />  
+      <Navbar setUser={setUser} />
       <h2>Job Seeker Profile</h2>
       <div className="authic-page">
-
         {viewingMessages ? (
           <div className="contact-requests">
             <h3>Contact Requests</h3>
-            <ul className='profile-card'>
+            <ul className="profile-card">
               {contactRequests.map((request) => (
-                <li key={request.id}>
+                <li key={request.id} className='request-item'>
+                  <div className='request-message'>
                   <p>{request.message}</p>
+                  </div>
+                  <div className='request-info'>
                   <small>From: {request.employer.company_name}</small>
                   <small>{request.created_at}</small>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -301,10 +308,16 @@ function JobSeekerProfile() {
               <button onClick={handleDeleteProfile} className="delete-button">
                 Delete Profile
               </button>
-              <button onClick={() => setIsEditing(true)} className="save-button">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="save-button"
+              >
                 Edit Profile
               </button>
-              <button onClick={toggleViewMessages} className="save-button">
+              <button
+                onClick={toggleViewMessages}
+                className="save-button"
+              >
                 View Messages
               </button>
             </div>

@@ -36,7 +36,7 @@ function Profilepic() {
         />
       </div>
       <div>
-        <h1 className="name text-success">{user.username}</h1>
+        <h1 className="name sm- text-success">{user.username}</h1>
         <h4 className="text-secondary compname">{companyName}</h4> 
         <button type="button" onClick={handleLogoutClick} className="btn btn-danger logout">log out</button>
         <Link to="/company-form" className="btn EDIT btn-primary">POST</Link>

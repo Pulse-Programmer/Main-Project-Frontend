@@ -42,6 +42,11 @@ const Availablejobseekrs = () => {
       console.error('Error fetching jobseeker details:', error);
     }
   };
+  // const handleViewJobseeker = (jobseeker) => {
+  //   setSelectedJobseeker(jobseeker);
+  //   setIsModalOpen(true); // Open the modal
+  // };
+
 
   const handleContactJobseeker = (jobseeker) => {
     setSelectedJobseeker(jobseeker);
@@ -74,8 +79,6 @@ const Availablejobseekrs = () => {
     } catch (error) {
       console.error('Error sending contact request:', error);
     }
-    console.log(selectedJobseeker.id,contactMessage);
-
   };
 
   const handlePayment = async (e) => {
@@ -112,7 +115,7 @@ const Availablejobseekrs = () => {
   };
 
   return (
-    <div className=" jobseekers-list   mt-5">
+    <div className="jobseekers-list mt-5">
       <h2 className="text-success top text-center mb-4">Available Job Seekers</h2>
       <div className="text-center mb-4">
         <button onClick={() => setModalType('payment')} className="btn btn-danger">
