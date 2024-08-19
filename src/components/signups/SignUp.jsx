@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import '../../CSS/signups-css/signup.css';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import React, { useState } from "react";
+import "../../CSS/signups-css/signup.css";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 const SignUp = () => {
-  const [role, setRole] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone_number, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   const { setUser } = useOutletContext();
@@ -34,10 +34,10 @@ const SignUp = () => {
     };
 
     try {
-      const response = await fetch('/signup', {
-        method: 'POST',
+      const response = await fetch("/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -45,13 +45,14 @@ const SignUp = () => {
       if (response.ok) {
         response.json().then((user_data) => {
           setUser(user_data);
-          console.log('User data:', user_data); // Debugging log
-          if (user_data.role === 'admin') {
-            navigate('/admin-profile');
-          } else if (user_data.role === 'job-seeker') { // Ensure the role matches the dropdown value
-            navigate('/jobseeker-profile');
-          } else if (user_data.role === 'employer') {
-            navigate('/employers-profile');
+          console.log("User data:", user_data); // Debugging log
+          if (user_data.role === "admin") {
+            navigate("/Main-Project-Frontend/admin-profile");
+          } else if (user_data.role === "job-seeker") {
+            // Ensure the role matches the dropdown value
+            navigate("/Main-Project-Frontend/jobseeker-profile");
+          } else if (user_data.role === "employer") {
+            navigate("/Main-Project-Frontend/employers-profile");
           }
         });
       } else {
@@ -59,86 +60,97 @@ const SignUp = () => {
         alert(`Error: ${errorData.message}`);
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while signing up. Please try again.');
+      console.error("Error:", error);
+      alert("An error occurred while signing up. Please try again.");
     }
   };
 
   return (
     <div className="signup bg-light">
-      <h1 className='h1 text-success'>Welcome!</h1>
-      <p className='p1 text-secondary'>Create your profile</p>
+      <h1 className="h1 text-success">Welcome!</h1>
+      <p className="p1 text-secondary">Create your profile</p>
       <form onSubmit={handleSubmit}>
-        <div className='mb-3 input'>
-          <input 
-            type="text"  
-            className='form-control' 
-            placeholder="User name" 
+        <div className="mb-3 input">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="User name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-          />   
+          />
         </div>
-        
-        <div className='mb-3 input'>
-          <input 
-            type="email" 
-            className='form-control' 
-            placeholder="Enter your email" 
+
+        <div className="mb-3 input">
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
 
-        <div className='mb-3 input'>
-          <input 
-            type="tel"  
-            className='form-control' 
-            placeholder="Phone number" 
+        <div className="mb-3 input">
+          <input
+            type="tel"
+            className="form-control"
+            placeholder="Phone number"
             value={phone_number}
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
           />
         </div>
 
-        <div className='mb-3 input'>
-          <input 
-            type="password" 
-            className='form-control' 
-            placeholder="Password" 
+        <div className="mb-3 input">
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
 
-        <div className='mb-3 input'>
-          <input 
-            type="password" 
-            className='form-control' 
-            placeholder="Confirm password" 
+        <div className="mb-3 input">
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-          />   
+          />
         </div>
 
-        <div className='mb-3 input'>
-          <select className='form' value={role} onChange={handleRoleChange} required>
-            <option value="" disabled>Select your role</option>
+        <div className="mb-3 input">
+          <select
+            className="form"
+            value={role}
+            onChange={handleRoleChange}
+            required
+          >
+            <option value="" disabled>
+              Select your role
+            </option>
             <option value="admin">Admin</option>
             <option value="job-seeker">Job Seeker</option>
             <option value="employer">Employer</option>
           </select>
         </div>
-        
-        <div className='h4'>
-          <button type='submit' className='btn btn2 btn-success'>Sign up</button>
+
+        <div className="h4">
+          <button type="submit" className="btn btn2 btn-success">
+            Sign up
+          </button>
         </div>
       </form>
-      <div className='up'>
-        <p className='don'>Have an account? <a href="/">Sign in</a></p>
+      <div className="up">
+        <p className="don">
+          Have an account? <a href="/">Sign in</a>
+        </p>
       </div>
     </div>
   );
