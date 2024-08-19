@@ -14,17 +14,20 @@ const UpdateForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`/employers/${user.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          company_name: companyName,
-          history: history,
-          services_offered: services,
-        }),
-      });
+      const response = await fetch(
+        `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            company_name: companyName,
+            history: history,
+            services_offered: services,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

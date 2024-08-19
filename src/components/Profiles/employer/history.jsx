@@ -14,7 +14,9 @@ function HistoryServices() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`/employers/${user.id}`);
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`
+        );
         const data = await response.json();
         setHistory(data.history);
       } catch (error) {
@@ -24,7 +26,9 @@ function HistoryServices() {
 
     const fetchServices = async () => {
       try {
-        const response = await fetch(`/employers/${user.id}`);
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`
+        );
         const data = await response.json();
         setServices(data.services_offered);
       } catch (error) {
@@ -54,7 +58,9 @@ function HistoryServices() {
             <h4 className="text-success">Our Services</h4>
           </div>
           <div className="card-body">
-            <p className="card-text fs-5">{services || "Loading services..."}</p>
+            <p className="card-text fs-5">
+              {services || "Loading services..."}
+            </p>
           </div>
         </div>
       </div>

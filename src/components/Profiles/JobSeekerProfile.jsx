@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import Navbar from './Navbar';
-import '../../CSS/jobseeker-css/jobseeker.css';
+import React, { useState, useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
+import Navbar from "./Navbar";
+import "../../CSS/jobseeker-css/jobseeker.css";
 
 function JobSeekerProfile() {
   const { user, setUser } = useOutletContext();
   const [profpic, setProfpic] = useState(null);
   const [profile, setProfile] = useState(null);
   const [formValues, setFormValues] = useState({
-    name: '',
-    work_experience: '',
-    job_category: '',
-    education: '',
-    skills: '',
-    bio: '',
-    salary_expectation: '',
-    resume_file: '',
+    name: "",
+    work_experience: "",
+    job_category: "",
+    education: "",
+    skills: "",
+    bio: "",
+    salary_expectation: "",
+    resume_file: "",
   });
   const [isEditing, setIsEditing] = useState(true);
   const [contactRequests, setContactRequests] = useState([]);
@@ -24,26 +24,30 @@ function JobSeekerProfile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`/jobseekers/${user.id}`);
-        if (!response.ok) throw new Error('Failed to fetch profile');
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/jobseekers/${user.id}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch profile");
         const data = await response.json();
         setProfile(data);
         setIsEditing(false);
       } catch (error) {
-        console.error('Error fetching profile:', error);
+        console.error("Error fetching profile:", error);
       }
     };
 
     const fetchContactRequests = async () => {
       try {
-        const response = await fetch(`/jobseekers/${user.id}`);
-        if (!response.ok) throw new Error('Failed to fetch contact requests');
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/jobseekers/${user.id}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch contact requests");
         const data = await response.json();
         // Ensure contactRequests is an array
         console.log(data);
         setContactRequests(data.contact_requests);
       } catch (error) {
-        console.error('Error fetching contact requests:', error);
+        console.error("Error fetching contact requests:", error);
         setContactRequests([]); // Set contactRequests to an empty array on error
       }
     };
@@ -79,20 +83,26 @@ function JobSeekerProfile() {
 
     try {
       const response = profile
-        ? await fetch(`/jobseekers/${user.id}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(profileData),
-          })
-        : await fetch('/jobseekers', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(profileData),
-          });
+        ? await fetch(
+            `https://main-project-backend-1z6e.onrender.com/jobseekers/${user.id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(profileData),
+            }
+          )
+        : await fetch(
+            "https://main-project-backend-1z6e.onrender.com/jobseekers",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(profileData),
+            }
+          );
 
       if (!response.ok) {
         const errorMessage = await response.text();
@@ -102,27 +112,30 @@ function JobSeekerProfile() {
       const updatedProfile = await response.json();
       setProfile(updatedProfile);
       setFormValues({
-        name: '',
-        work_experience: '',
-        job_category: '',
-        education: '',
-        skills: '',
-        bio: '',
-        salary_expectation: '',
-        resume_file: '',
+        name: "",
+        work_experience: "",
+        job_category: "",
+        education: "",
+        skills: "",
+        bio: "",
+        salary_expectation: "",
+        resume_file: "",
       });
       setProfpic(null);
       setIsEditing(false);
     } catch (error) {
-      console.error('Error saving profile:', error);
+      console.error("Error saving profile:", error);
     }
   };
 
   const handleDeleteProfile = async () => {
     try {
-      const response = await fetch(`/jobseekers/${user.id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://main-project-backend-1z6e.onrender.com/jobseekers/${user.id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
         const errorMessage = await response.text();
@@ -131,19 +144,19 @@ function JobSeekerProfile() {
 
       setProfile(null);
       setFormValues({
-        name: '',
-        job_category: '',
-        work_experience: '',
-        education: '',
-        skills: '',
-        bio: '',
-        salary_expectation: '',
-        resume_file: '',
+        name: "",
+        job_category: "",
+        work_experience: "",
+        education: "",
+        skills: "",
+        bio: "",
+        salary_expectation: "",
+        resume_file: "",
       });
       setProfpic(null);
       setIsEditing(true);
     } catch (error) {
-      console.error('Error deleting profile:', error);
+      console.error("Error deleting profile:", error);
     }
   };
 
@@ -169,13 +182,13 @@ function JobSeekerProfile() {
             <h3>Contact Requests</h3>
             <ul className="profile-card">
               {contactRequests.map((request) => (
-                <li key={request.id} className='request-item'>
-                  <div className='request-message'>
-                  <p>{request.message}</p>
+                <li key={request.id} className="request-item">
+                  <div className="request-message">
+                    <p>{request.message}</p>
                   </div>
-                  <div className='request-info'>
-                  <small>From: {request.employer.company_name}</small>
-                  <small>{request.created_at}</small>
+                  <div className="request-info">
+                    <small>From: {request.employer.company_name}</small>
+                    <small>{request.created_at}</small>
                   </div>
                 </li>
               ))}
@@ -281,7 +294,7 @@ function JobSeekerProfile() {
               />
             </div>
             <button type="submit" className="save-button">
-              {profile ? 'Update Profile' : 'Save Profile'}
+              {profile ? "Update Profile" : "Save Profile"}
             </button>
           </form>
         ) : (
@@ -314,10 +327,7 @@ function JobSeekerProfile() {
               >
                 Edit Profile
               </button>
-              <button
-                onClick={toggleViewMessages}
-                className="save-button"
-              >
+              <button onClick={toggleViewMessages} className="save-button">
                 View Messages
               </button>
             </div>

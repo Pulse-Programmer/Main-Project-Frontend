@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import '../../../CSS/employer/availableemployer.css';
-import { useOutletContext } from 'react-router-dom';
-import Modal from '../employer/modal';
+import React, { useEffect, useState } from "react";
+import "../../../CSS/employer/availableemployer.css";
+import { useOutletContext } from "react-router-dom";
+import Modal from "../employer/modal";
 
 const AvailableEmployersAdmin = () => {
   const [employers, setEmployers] = useState([]);
@@ -12,15 +12,17 @@ const AvailableEmployersAdmin = () => {
   useEffect(() => {
     const fetchEmployersData = async () => {
       try {
-        const response = await fetch(`/employers`);
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/employers`
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Fetched data:', data);
+        console.log("Fetched data:", data);
         setEmployers(data);
       } catch (error) {
-        console.error('Error fetching employers data:', error);
+        console.error("Error fetching employers data:", error);
       }
     };
 
@@ -33,20 +35,23 @@ const AvailableEmployersAdmin = () => {
   };
 
   const handleRemoveEmployer = async (id) => {
-    if (window.confirm('Are you sure you want to remove this employer?')) {
+    if (window.confirm("Are you sure you want to remove this employer?")) {
       try {
-        console.log('Removing employer with ID:', id);
-        const response = await fetch(`/employers/${id}`, {
-          method: 'DELETE',
-        });
+        console.log("Removing employer with ID:", id);
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/employers/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
         if (response.ok) {
-          console.log('Employer removed successfully');
+          console.log("Employer removed successfully");
           setEmployers(employers.filter((employer) => employer.id !== id));
         } else {
-          console.error('Error removing employer:', response.statusText);
+          console.error("Error removing employer:", response.statusText);
         }
       } catch (error) {
-        console.error('Error removing employer:', error);
+        console.error("Error removing employer:", error);
       }
     }
   };
@@ -58,9 +63,9 @@ const AvailableEmployersAdmin = () => {
 
   return (
     <div className="jobseekers-list">
-      <h2 className='text-success'>Available Employers</h2>
+      <h2 className="text-success">Available Employers</h2>
       {employers.length > 0 ? (
-        <ul className='ul'>
+        <ul className="ul">
           {employers.map((employer) => (
             <li key={employer.id} className="jobseeker-item">
               <span className="employer-info">
@@ -68,14 +73,14 @@ const AvailableEmployersAdmin = () => {
                 <strong>Company Name:</strong> {employer.company_name}
               </span>
               <div className="actions">
-                <button 
-                  className='btn bg-primary V text-white' 
+                <button
+                  className="btn bg-primary V text-white"
                   onClick={() => handleViewEmployer(employer)}
                 >
                   View
                 </button>
-                <button 
-                  className='btn bg-danger text-white' 
+                <button
+                  className="btn bg-danger text-white"
                   onClick={() => handleRemoveEmployer(employer.id)}
                 >
                   Remove
@@ -93,12 +98,23 @@ const AvailableEmployersAdmin = () => {
         {selectedEmployer && (
           <>
             <h3>Employer Details</h3>
-            <p><strong>Username:</strong> {selectedEmployer.user.username}</p>
-            <p><strong>Email:</strong> {selectedEmployer.user.email}</p>
-            <p><strong>Company Name:</strong> {selectedEmployer.company_name}</p>
-            <p><strong>Company history:</strong> {selectedEmployer.history}</p>
-            <p><strong>Company Services:</strong> {selectedEmployer.services_offered}</p>
-            
+            <p>
+              <strong>Username:</strong> {selectedEmployer.user.username}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedEmployer.user.email}
+            </p>
+            <p>
+              <strong>Company Name:</strong> {selectedEmployer.company_name}
+            </p>
+            <p>
+              <strong>Company history:</strong> {selectedEmployer.history}
+            </p>
+            <p>
+              <strong>Company Services:</strong>{" "}
+              {selectedEmployer.services_offered}
+            </p>
+
             {/* Add more details as needed */}
           </>
         )}

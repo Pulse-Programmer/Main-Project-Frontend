@@ -11,7 +11,9 @@ function Adminpic() {
   const navigate = useNavigate();
 
   function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" })
+    fetch("https://main-project-backend-1z6e.onrender.com/logout", {
+      method: "DELETE",
+    })
       .then((r) => {
         if (r.ok) {
           setUser(null);

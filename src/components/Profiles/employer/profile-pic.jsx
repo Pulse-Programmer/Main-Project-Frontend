@@ -8,7 +8,9 @@ function Profilepic() {
   const [companyName, setCompanyName] = useState("");
 
   function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" })
+    fetch("https://main-project-backend-1z6e.onrender.com/logout", {
+      method: "DELETE",
+    })
       .then((r) => {
         if (r.ok) {
           setUser(null);
@@ -18,7 +20,7 @@ function Profilepic() {
   }
 
   useEffect(() => {
-    fetch(`/employers/${user.id}`)
+    fetch(`https://main-project-backend-1z6e.onrender.com/employers/${user.id}`)
       .then((r) => r.json())
       .then((data) => {
         setCompanyName(data.company_name); // Update with the correct field from the backend

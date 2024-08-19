@@ -95,7 +95,9 @@ const Login = () => {
       <div className="up">
         <p className="don">
           Don't have an account?{" "}
-          <a href="/Main-Project-Frontend/signup">Sign up</a>{" "}
+          <button onClick={() => navigate("/Main-Project-Frontend/signup")}>
+            Sign up
+          </button>{" "}
         </p>
       </div>
     </div>
