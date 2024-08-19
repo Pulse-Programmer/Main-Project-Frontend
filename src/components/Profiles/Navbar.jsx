@@ -1,18 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../CSS/jobseeker-css/navbar.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../../CSS/jobseeker-css/navbar.css";
 
 function Navbar({ setUser }) {
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
-    fetch('/logout', { method: 'DELETE' })
+    fetch("/logout", { method: "DELETE" })
       .then((r) => {
         if (r.ok) {
           setUser(null);
         }
       })
-      .then(() => navigate('/'));
+      .then(() => navigate("/Main-Project-Frontend"));
   };
 
   return (
