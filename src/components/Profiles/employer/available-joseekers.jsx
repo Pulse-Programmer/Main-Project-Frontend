@@ -1,98 +1,208 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { nextCard, prevCard } from '../../../redux/actions';
-import "../../../CSS/employer/employer.css";
+import React, { useEffect, useState } from 'react';
+import '../../../CSS/employer/availablejobseekers.css';
+import { useOutletContext } from 'react-router-dom';
+import Modal from '../../Profiles/employer/modal';
 
-const jobseekers = [
-  {
-    name: "John Doe",
-    company: "RoamTech Technologies",
-    imgSrc: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Primary card title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-  },
-  {
-    name: "Jane Smith",
-    company: "Tech Innovators",
-    imgSrc: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Secondary card title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-  },
-  {
-    name: "Alice Johnson",
-    company: "FutureWorks",
-    imgSrc: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Success card title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content."
-  },
-  {
-    name: "Bob Brown",
-    company: "InnovateX",
-    imgSrc: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Innovation card title",
-    description: "Some more example text to build on the card title and make up the bulk of the card's content."
-  },
-  {
-    name: "Charlie White",
-    company: "NextGen Tech",
-    imgSrc: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "NextGen card title",
-    description: "Additional example text to build on the card title and make up the bulk of the card's content."
-  }
-];
+const Availablejobseekrs = () => {
+  const [jobseekers, setJobseekers] = useState([]);
+  const [selectedJobseeker, setSelectedJobseeker] = useState(null);
+  const [modalType, setModalType] = useState(null); // To track which modal to show
+  const [contactMessage, setContactMessage] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState(null);
+  const outletContext = useOutletContext();
 
-function Availablejobseekrs() {
-  const startIndex = useSelector((state) => state.startIndex);
-  const dispatch = useDispatch();
-
-  const handleNextClick = () => {
-    dispatch(nextCard());
+  const fetchJobseekersData = async () => {
+    try {
+      const response = await fetch(`/jobseekers`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Fetched data:', data);
+      setJobseekers(data);
+    } catch (error) {
+      console.error('Error fetching jobseekers data:', error);
+    }
   };
 
-  const handlePrevClick = () => {
-    dispatch(prevCard());
+  useEffect(() => {
+    fetchJobseekersData();
+  }, [outletContext]);
+
+  const handleViewJobseeker = async (id) => {
+    try {
+      const response = await fetch(`/jobseekers/${id}`);
+      if (!response.ok) {
+        throw new Error(`Error fetching jobseeker details: ${response.status}`);
+      }
+      const data = await response.json();
+      setSelectedJobseeker(data);
+      setModalType('details');
+    } catch (error) {
+      console.error('Error fetching jobseeker details:', error);
+    }
+  };
+  // const handleViewJobseeker = (jobseeker) => {
+  //   setSelectedJobseeker(jobseeker);
+  //   setIsModalOpen(true); // Open the modal
+  // };
+
+
+  const handleContactJobseeker = (jobseeker) => {
+    setSelectedJobseeker(jobseeker);
+    setModalType('contact');
   };
 
-  const displayedJobseekers = [
-    jobseekers[startIndex % jobseekers.length],
-    jobseekers[(startIndex + 1) % jobseekers.length],
-    jobseekers[(startIndex + 2) % jobseekers.length]
-  ];
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/contact_requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          jobseekerID: selectedJobseeker.id,
+          message: contactMessage
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Contact request sent:', data);
+        setModalType(null);
+        setContactMessage('');
+        setSelectedJobseeker(null);
+      } else {
+        throw new Error(`Contact request failed: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error sending contact request:', error);
+    }
+  };
+
+  const handlePayment = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/payments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: 50 }), // Adjust the amount as needed
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Payment successful:', data);
+        setPaymentStatus('Payment successful');
+        setModalType(null);
+        fetchJobseekersData();
+      } else {
+        throw new Error(`Payment failed: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      setPaymentStatus('Payment failed');
+    }
+  };
+
+  const closeModal = () => {
+    setModalType(null);
+    setSelectedJobseeker(null);
+    setPaymentStatus(null);
+    setContactMessage('');
+  };
 
   return (
-    <div className="emjobseeker">
-      <h4 className="h41">Available jobseekers</h4>
-      <div className="row row2">
-        {displayedJobseekers.map((jobseeker, index) => (
-          <div key={jobseeker.name} className="card col-4 jobcards border-secondary mb-3">
-            <div className="pic">
-              <img className="src1" src={jobseeker.imgSrc} alt="profile-pic" />
-              <div>
-                <h1 className="name1 text-success mt-4">{jobseeker.name}</h1>
-                <h4 className="compname1 text-secondary ms-3">{jobseeker.company}</h4>
-              </div>
+    <div className="jobseekers-list mt-5">
+      <h2 className="text-success top text-center mb-4">Available Job Seekers</h2>
+      <div className="text-center mb-4">
+        <button onClick={() => setModalType('payment')} className="btn btn-danger">
+          Pay Now
+        </button>
+      </div>
+
+      {/* Modal Rendering */}
+      {modalType === 'payment' && (
+        <Modal show onClose={closeModal}>
+          <h3>Payment Form</h3>
+          <form onSubmit={handlePayment}>
+            <div className="form-group">
+              <label>Amount:</label>
+              <input type="number" className="form-control" value={50} disabled />
             </div>
-            <div className="card-body text-secondary">
-              <h5 className="card-title">{jobseeker.title}</h5>
-              <p className="card-text">{jobseeker.description}</p>
+            <button type="submit" className="btn btn-success mt-3">Pay</button>
+          </form>
+          {paymentStatus && <p>{paymentStatus}</p>}
+        </Modal>
+      )}
+
+      {modalType === 'contact' && selectedJobseeker && (
+        <Modal show onClose={closeModal}>
+          <h3>Contact {selectedJobseeker?.user?.username}</h3>
+          <form onSubmit={handleContactSubmit}>
+            <div className="form-group">
+              <label>Message:</label>
+              <textarea 
+                className="form-control" 
+                value={contactMessage} 
+                onChange={(e) => setContactMessage(e.target.value)} 
+                required 
+              />
             </div>
+            <button type="submit" className="btn btn-success mt-3">Send</button>
+          </form>
+        </Modal>
+      )}
+
+      {modalType === 'details' && selectedJobseeker && (
+        <Modal show onClose={closeModal}>
+          <h3>Jobseeker Details</h3>
+          {selectedJobseeker && (
             <div>
-              <button type="button" className="btn contact btn-success">Contact Me</button>
-              <button type="button" className="btn view btn-success">View My Profile</button>
+              <p><strong>Username:</strong> {selectedJobseeker.user.username}</p>
+              <p><strong>Email:</strong> {selectedJobseeker.user.email}</p>
+              <p><strong>Phone Number:</strong> {selectedJobseeker.user.phone_number}</p>
+              <p><strong>Skills:</strong> {selectedJobseeker.skills}</p>
+              <p><strong>Experience:</strong> {selectedJobseeker.experience}</p>
+              <p><strong>Education:</strong> {selectedJobseeker.education}</p>
+              {/* Add other fields as necessary */}
             </div>
-          </div>
-        ))}
-      </div>
-      <div className="navigation-buttons">
-        <button className="btn btn-secondary previous-btn" onClick={handlePrevClick}>
-          Previous
-        </button>
-        <button className="btn btn-secondary next-btn" onClick={handleNextClick}>
-          Next
-        </button>
-      </div>
+          )}
+        </Modal>
+      )}
+
+      {jobseekers.length > 0 ? (
+        <ul className="list-group">
+          {jobseekers.map((jobseeker) => (
+            <li key={jobseeker.id} className="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <h5 className="mb-1">{jobseeker.user.username}</h5>
+                <p className="mb-1"><strong>Skills:</strong> {jobseeker.skills}</p>
+              </div>
+              <div>
+                <button 
+                  className="btn btn-primary mr-2" 
+                  onClick={() => handleViewJobseeker(jobseeker.id)}
+                >
+                  View
+                </button>
+                <button 
+                  className="btn btn-info" 
+                  onClick={() => handleContactJobseeker(jobseeker)}
+                >
+                  Contact Me
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-center">No jobseekers found.</p>
+      )}
     </div>
   );
-}
+};
 
 export default Availablejobseekrs;
