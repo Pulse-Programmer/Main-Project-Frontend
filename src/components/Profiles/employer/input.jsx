@@ -76,7 +76,7 @@ const FormComponent = () => {
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button className='inputbutton' type="submit">Submit</button>
       </form>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import "../../../CSS/employer/employer.css";
+import { useNavigate } from 'react-router-dom';
 
 
 const UpdateForm = () => {
@@ -7,6 +9,7 @@ const UpdateForm = () => {
   const [history, setHistory] = useState('');
   const [services, setServices] = useState('');
   const { user } = useOutletContext();
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (e) => {
@@ -28,6 +31,12 @@ const UpdateForm = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      if(response.ok){
+        navigate('/employers-profile');
+      }
+      else {
+        console.error('Failed to update data');
+      }
 
       const data = await response.json();
       console.log('Data updated successfully:', data);
@@ -37,31 +46,36 @@ const UpdateForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+   <div className='form-container'> 
+     <form onSubmit={handleSubmit}>
+      <div className="form-group">
         <label>Company Name:</label>
         <input
           type="text"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
+          placeholder="Enter company name"
         />
       </div>
-      <div>
+      <div className="form-group">
         <label>Our History:</label>
         <textarea
           value={history}
           onChange={(e) => setHistory(e.target.value)}
+          placeholder="Enter our history"
         />
       </div>
-      <div>
+      <div className="form-group" >
         <label>Our Services:</label>
         <textarea
           value={services}
           onChange={(e) => setServices(e.target.value)}
+          placeholder="Enter our services"
         />
       </div>
-      <button type="submit">Update</button>
+      <button className='inputbutton' type="submit">Update</button>
     </form>
+   </div>
   );
 };
 
