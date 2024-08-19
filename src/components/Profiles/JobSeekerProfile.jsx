@@ -36,11 +36,13 @@ function JobSeekerProfile() {
 
     const fetchContactRequests = async () => {
       try {
-        const response = await fetch(`/contact_requests/${1}`);
+        const response = await fetch(`/contact_requests/${user.id}`);
         if (!response.ok) throw new Error('Failed to fetch contact requests');
         const data = await response.json();
         // Ensure contactRequests is an array
-        setContactRequests(Array.isArray(data) ? data : []);
+        console.log(data.contactRequests)
+        setContactRequests(data.contactRequests);
+        
       } catch (error) {
         console.error('Error fetching contact requests:', error);
       }
@@ -166,7 +168,8 @@ function JobSeekerProfile() {
               {contactRequests.map((request) => (
                 <li key={request.id}>
                   <p>{request.message}</p>
-                  <small>From: {request.employerName}</small>
+                  <small>From: {request.employer.company_name}</small>
+                  <small>{request.created_at}</small>
                 </li>
               ))}
             </ul>
