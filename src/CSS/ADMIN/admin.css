@@ -1,0 +1,26 @@
+.dashboard-header {
+    background-color: #343a40; /* Dark background color */
+    color: #fff; /* White text color */
+  }
+  
+  h3 {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .table {
+    margin-top: 15px;
+  }
+  
+  .table-bordered {
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .me-2 {
+    margin-right: 0.5rem;
+  }
+  

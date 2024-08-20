@@ -1,0 +1,213 @@
+
+/*Navbar Logo */
+ .navbar-logo {
+  height: 30px;
+  margin-right: 10px;
+}
+
+/*User Info Section */
+.user-info-section {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  font-size: 1.125rem;
+  color: #333;
+} 
+
+/* History Section */
+.history-section {
+  padding: 50px 0;
+}
+
+.history-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.history-text {
+  font-size: 1.125rem;
+  color: #6c757d;
+}
+
+.history-image-placeholder {
+  background-color: #f8f9fa;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+} 
+
+.image-placeholder-icon {
+  font-size: 3rem;
+  color: #ced4da;
+}
+.img-history{
+  width: 100%;
+  height: 100%;
+  border-radius: 2vh;
+}
+/* sevices */
+/* Services Section */
+.services-section {
+  padding: 50px 0;
+}
+
+.services-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.services-text {
+  font-size: 1.125rem;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.services-list {
+  list-style: none;
+  padding: 0;
+}
+
+.services-list li {
+  font-size: 1.125rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.services-list i {
+  margin-right: 10px;
+  font-size: 1.5rem;
+} 
+
+.services-image-placeholder {
+  background-color: #f8f9fa;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.image-placeholder-icon {
+  font-size: 3rem;
+  color: #ced4da;
+} 
+/* jobseeker */
+
+
+.job-seekers-section {
+  padding: 50px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: #6c757d;
+  text-align: center;
+  margin-bottom: 30px;
+} 
+
+.job-seeker-card {
+  margin-bottom: 30px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 15px;
+}
+
+.skills {
+  margin-bottom: 15px;
+}
+
+.skills .badge {
+  margin-right: 5px;
+  font-size: 0.875rem;
+}
+
+.cont-cutoon,
+.view-button{
+  width: 100%;
+  font-size: 1rem;
+}
+.pay-button{
+  width: 10vh;
+  margin-bottom: 10vh;
+  margin-left: 50vh;
+  align-items: center;
+  text-align: center;
+ 
+}
+.pay-p{
+  font-size: 1.5rem;
+  margin-left: 30vh;
+}
+
+.text-muted-3{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 576px) {
+  .navbar-nav{
+    display: flex;
+    flex-direction: row;
+  }
+  .nav-item{
+    margin-right: 15px;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-nav{
+    display: flex;
+    flex-direction: row;
+  }
+  .nav-item{
+    margin-right: 15px;
+  }
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* footer */
+.footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  font-size: 14px;
+} 

@@ -1,44 +1,44 @@
 import React, { useState } from "react";
-import "../../../CSS/employer/employer.css";
+
 import { useOutletContext, useNavigate } from "react-router-dom";
 
 function Adminpic() {
   const [profilePic, setProfilePic] = useState(
     "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600"
   );
-  const [isEditing, setIsEditing] = useState(false);
-  const { user, setUser } = useOutletContext();
-  const navigate = useNavigate();
+  // const [isEditing, setIsEditing] = useState(false);
+  // const { user, setUser } = useOutletContext();
+  // const navigate = useNavigate();
 
-  function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" })
-      .then((r) => {
-        if (r.ok) {
-          setUser(null);
-          console.log("Logout successful");
-          navigate("/Main-Project-Frontend"); // Redirect after logout
-        } else {
-          console.error("Logout failed", r.statusText);
-        }
-      })
-      .catch((error) => console.error("Network error during logout:", error));
-  }
+  // function handleLogoutClick() {
+  //   fetch("/logout", { method: "DELETE" })
+  //     .then((r) => {
+  //       if (r.ok) {
+  //         setUser(null);
+  //         console.log("Logout successful");
+  //         navigate("/Main-Project-Frontend"); // Redirect after logout
+  //       } else {
+  //         console.error("Logout failed", r.statusText);
+  //       }
+  //     })
+  //     .catch((error) => console.error("Network error during logout:", error));
+  // }
 
-  const handlePicChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfilePic(e.target.result);
-        setIsEditing(false); // Automatically close edit mode after selecting a new image
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handlePicChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       setProfilePic(e.target.result);
+  //       setIsEditing(false); // Automatically close edit mode after selecting a new image
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
-  const toggleEdit = () => {
-    setIsEditing(!isEditing);
-  };
+  // const toggleEdit = () => {
+  //   setIsEditing(!isEditing);
+  // };
 
   return (
     <div className="profilepic">

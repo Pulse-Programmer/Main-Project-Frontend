@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Navbar from './Navbar';
-import '../../CSS/jobseeker-css/jobseeker.css';
+
 
 function JobSeekerProfile() {
   const { user, setUser } = useOutletContext();

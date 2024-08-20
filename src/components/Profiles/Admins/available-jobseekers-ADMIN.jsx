@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../../CSS/employer/availableemployer.css';
+
 import { useOutletContext } from 'react-router-dom';
 import Modal from '../employer/modal';
 
@@ -106,3 +106,4 @@ const AvailableJobseekersAdmin = () => {
 };
 
 export default AvailableJobseekersAdmin;
+ .

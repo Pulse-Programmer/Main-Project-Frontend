@@ -7,15 +7,15 @@ function Profilepic() {
   const { user, setUser } = useOutletContext();
   const [companyName, setCompanyName] = useState("");
 
-  function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" })
-      .then((r) => {
-        if (r.ok) {
-          setUser(null);
-        }
-      })
-      .then(() => navigate("/Main-Project-Frontend"));
-  }
+  // function handleLogoutClick() {
+  //   fetch("/logout", { method: "DELETE" })
+  //     .then((r) => {
+  //       if (r.ok) {
+  //         setUser(null);
+  //       }
+  //     })
+  //     .then(() => navigate("/Main-Project-Frontend"));
+  // }
 
   useEffect(() => {
     fetch(`/employers/${user.id}`)

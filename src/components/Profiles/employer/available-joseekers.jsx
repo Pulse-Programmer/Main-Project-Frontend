@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import '../../../CSS/employer/availablejobseekers.css';
+
 import { useOutletContext } from 'react-router-dom';
 import Modal from '../../Profiles/employer/modal';
 
 const Availablejobseekrs = () => {
-  const [jobseekers, setJobseekers] = useState([]);
+  // const [jobseekers, setJobseekers] = useState([]);
   const [selectedJobseeker, setSelectedJobseeker] = useState(null);
-  const [modalType, setModalType] = useState(null); // To track which modal to show
+  // const [modalType, setModalType] = useState(null); // To track which modal to show
   const [contactMessage, setContactMessage] = useState('');
-  const [paymentStatus, setPaymentStatus] = useState(null);
-  const outletContext = useOutletContext();
+  // const [paymentStatus, setPaymentStatus] = useState(null);
+  // const outletContext = useOutletContext();
 
   const fetchJobseekersData = async () => {
     try {
@@ -184,7 +184,7 @@ const Availablejobseekrs = () => {
               <div>
                 <button 
                   className="btn btn-primary mr-2" 
-                  onClick={() => handleViewJobseeker(jobseeker.id)}
+                  onClick={() => handleViewJobseeker(jobseeker.user_id)}
                 >
                   View
                 </button>

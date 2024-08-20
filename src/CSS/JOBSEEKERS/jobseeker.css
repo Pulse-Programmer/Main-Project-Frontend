@@ -1,0 +1,44 @@
+
+/* Navbar Logo */
+.profile-card {
+  max-width: 70vh;
+  margin: auto;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.profile-icon i {
+  color: #6c757d;
+}
+/* Navbar Logo */
+/* Custom styles for the navbar */
+.navbar {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  margin-right: 1rem;
+}
+
+/* Custom styles for the profile card */
+.profile-card {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+}
+
+.profile-icon {
+  color: #6c757d;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+

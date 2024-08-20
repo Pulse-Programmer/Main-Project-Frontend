@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import "../../../CSS/employer/employer.css";
+import '../../../CSS/EMPLOYERS/add-profile.css'
 import { useNavigate } from "react-router-dom";
 
 const UpdateForm = () => {
@@ -43,34 +43,39 @@ const UpdateForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Company Name:</label>
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <form onSubmit={handleSubmit} className="card p-4 shadow-lg company-form-card">
+      <h3 className="mb-4 text-success">About Your Company</h3>
+                <p className="mb-4">Fill out the details below to showcase your business.</p>
+        <div className="mb-3">
+          <label className="form-label">Company Name:</label>
           <input
             type="text"
             value={companyName}
+            className="form-control"
             onChange={(e) => setCompanyName(e.target.value)}
             placeholder="Enter company name"
           />
         </div>
         <div className="form-group">
-          <label>Our History:</label>
+          <label className="form-label">Our History:</label>
           <textarea
             value={history}
+            className="form-control"
             onChange={(e) => setHistory(e.target.value)}
             placeholder="Enter our history"
           />
         </div>
         <div className="form-group">
-          <label>Our Services:</label>
+          <label className="form-label">Our Services:</label>
           <textarea
             value={services}
+            className="form-control"
             onChange={(e) => setServices(e.target.value)}
             placeholder="Enter our services"
           />
         </div>
-        <button className="inputbutton" type="submit">
+        <button className="btn btn-dark mt-4"  type="submit">
           Update
         </button>
       </form>

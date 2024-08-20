@@ -1,28 +1,28 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "../../CSS/jobseeker-css/navbar.css";
+// import React from "react";
+// import { useNavigate } from "react-router-dom";
 
-function Navbar({ setUser }) {
-  const navigate = useNavigate();
 
-  const handleLogoutClick = () => {
-    fetch("/logout", { method: "DELETE" })
-      .then((r) => {
-        if (r.ok) {
-          setUser(null);
-        }
-      })
-      .then(() => navigate("/Main-Project-Frontend"));
-  };
+// function Navbar({ setUser }) {
+//   const navigate = useNavigate();
 
-  return (
-    <nav className="navbar">
-      <h1>JobSeeker App</h1>
-      <button onClick={handleLogoutClick} className="logout-button">
-        Logout
-      </button>
-    </nav>
-  );
-}
+//   const handleLogoutClick = () => {
+//     fetch("/logout", { method: "DELETE" })
+//       .then((r) => {
+//         if (r.ok) {
+//           setUser(null);
+//         }
+//       })
+//       .then(() => navigate("/Main-Project-Frontend"));
+//   };
 
-export default Navbar;
+//   return (
+//     <nav className="navbar">
+//       <h1>JobSeeker App</h1>
+//       <button onClick={handleLogoutClick} className="logout-button">
+//         Logout
+//       </button>
+//     </nav>
+//   );
+// }
+
+// export default Navbar;
