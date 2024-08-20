@@ -1,18 +1,22 @@
 import React from "react"
-import Profilepic from "./employer/profile-pic"
-import History from "./employer/history";
-import Availablejobseekrs from "./employer/available-joseekers";
+import OurHistory from "../EMPLOYERS/history";
+import ServicesSection from "../EMPLOYERS/services";
+import JobSeekersSection from "../EMPLOYERS/available-jobseekers";
+import Footer from "../Home/footer";
 import { useOutletContext } from "react-router-dom";
+
 
 
 function EmployersProfile (){
   const { user } = useOutletContext();
   if (user) {
   return(
-    <div className="bg-primary-subtle ">
-      <Profilepic />
-      <History />
-      <Availablejobseekrs/>
+    <div>
+      <OurHistory/>
+      <ServicesSection/>
+      <JobSeekersSection/>
+      <Footer/>
+      
     </div>
   )
   }

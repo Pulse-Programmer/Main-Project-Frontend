@@ -149,7 +149,7 @@ const SignUp = () => {
       </form>
       <div className="up">
         <p className="don">
-          Have an account? <a href="/">Sign in</a>
+          Have an account? <a href="/Main-Project-Frontend/login">Sign in</a>
         </p>
       </div>
     </div>

@@ -25,7 +25,7 @@ function App() {
         });
       }
     });
-  }, []);
+  }, []); //livd
 
   // if (!user) return <Login onLogin={setUser} />;
 

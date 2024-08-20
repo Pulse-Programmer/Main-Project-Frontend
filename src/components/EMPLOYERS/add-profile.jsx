@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import "../../CSS/EMPLOYERS/add-profile.css";
 import { useNavigate } from "react-router-dom";
-
 import { useOutletContext } from "react-router-dom";
 
-const FormComponent = () => {
+function CompanyForm() {
   const [formData, setFormData] = useState({
     company_name: "",
     history: "",
@@ -19,7 +19,6 @@ const FormComponent = () => {
     });
   };
   console.log(formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -43,52 +42,62 @@ const FormComponent = () => {
   };
 
   return (
-    <div  className="container d-flex justify-content-center align-items-center vh-100">
-      <form onSubmit={handleSubmit} className="card p-4 shadow-lg company-form-card">
-      <h3 className="mb-4 text-success">About Your Company</h3>
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div
+        onSubmit={handleSubmit}
+        className="card p-4 shadow-lg company-form-card"
+      >
+        <h3 className="mb-4 text-success">About Your Company</h3>
         <p className="mb-4">
           Fill out the details below to showcase your business.
         </p>
         <div className="mb-3">
-          <label htmlFor="company_name" className="form-label">Company Name</label>
+          <label htmlFor="company_name" className="form-label" >
+            Company Name
+          </label>
           <input
             type="text"
             name="company_name"
             className="form-control"
             value={formData.company_name}
             onChange={handleChange}
-            placeholder="Enter company name"
+            placeholder="Enter your company name"
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="history" className="form-label">Our History</label>
+        <div className="mb-3">
+          <label htmlFor="history" className="form-label">
+            Our History
+          </label>
           <textarea
             name="history"
-            value={formData.history}
             className="form-control"
+            value={formData.history}
             onChange={handleChange}
-            placeholder="Enter our history"
+            placeholder="Tell us about your company's history"
             required
-          />
+          ></textarea>
         </div>
-        <div className="form-group">
-          <label htmlFor="services_offered" className="form-label">Our Services</label>
+        <div className="mb-3">
+          <label htmlFor="services_offered" className="form-label">
+            Our Services
+          </label>
           <textarea
             name="services_offered"
-            value={formData.services_offered}
             className="form-control"
+            rows="3"
+            value={formData.services_offered}
             onChange={handleChange}
-            placeholder="Enter our services"
+            placeholder="Describe the services you offer"
             required
-          />
+          ></textarea>
         </div>
-        <button className="btn btn-dark"  type="submit">
-          Submit
+        <button className="btn btn-dark" type="submit">
+          Save
         </button>
-      </form>
+      </div>
     </div>
   );
-};
+}
 
-export default FormComponent;
+export default CompanyForm;

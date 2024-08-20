@@ -1,7 +1,6 @@
 import React from "react";
-import Adminpic from "./Admins/admin-pic";
-import AvailablejobseekrsAdmin from "./Admins/available-jobseekers-ADMIN";
-import AvailableemployersAdmin from "./Admins/available-employer";
+import AdminDashboard from "../ADMIN/admin";
+
 import { useOutletContext } from "react-router-dom";
 
 
@@ -10,12 +9,7 @@ function AdminProfile (){
   if (user) {
     return(
       <div className="bg-light">
-  
-        <Adminpic/>
-        <AvailablejobseekrsAdmin/>
-        <AvailableemployersAdmin/>
-        
-        
+        <AdminDashboard />
       </div>
     )
   }

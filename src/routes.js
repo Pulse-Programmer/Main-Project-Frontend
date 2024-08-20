@@ -1,11 +1,14 @@
 import App from "./App";
 import Login from "./components/logins/Login";
 import SignUp from "./components/signups/SignUp";
-import JobSeekerProfile from "./components/Profiles/JobSeekerProfile";
+import ProfileCard from "./components/JOBSEEKERS/jobseeker";
 import EmployersProfile from "./components/Profiles/EmployersProfile";
 import AdminProfile from "./components/Profiles/AdminProfile";
+// import CompanyForm from "./components/EMPLOYERS/add-profile";
 import FormComponent from "./components/Profiles/employer/input";
+// import EditForm from "./components/EMPLOYERS/edit-profile";
 import UpdateForm from "./components/Profiles/employer/editing";
+import Home from "./components/Home";
 
 // const routes = [
 //     {
@@ -42,8 +45,12 @@ const routes = [
     element: <App />,
     children: [
       {
+        path: "/Main-Project-Frontend",
+        element: <Home />,
+        },
+      {
         path: "/Main-Project-Frontend/jobseeker-profile",
-        element: <JobSeekerProfile />,
+        element: <ProfileCard />,
       },
       {
         path: "/Main-Project-Frontend/employers-profile",
@@ -53,7 +60,7 @@ const routes = [
         path: "/Main-Project-Frontend/admin-profile",
         element: <AdminProfile />,
       },
-      { path: "/Main-Project-Frontend", element: <Login /> },
+      { path: "/Main-Project-Frontend/login", element: <Login /> },
       { path: "/Main-Project-Frontend/signup", element: <SignUp /> },
       {
         path: "/Main-Project-Frontend/company-form",
