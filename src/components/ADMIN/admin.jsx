@@ -35,7 +35,7 @@ function AdminDashboard() {
               }
               const data = await response.json();
               console.log('Fetched data:', data);
-              setEmployers(data);
+            //   setEmployers(data);
             } catch (error) {
               console.error('Error fetching employers data:', error);
             }
