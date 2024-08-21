@@ -14,8 +14,14 @@ const JobSeekersSection = () => {
   // FETCHING JOBSEEKERS DATA
   const fetchJobseekersData = async () => {
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(
-        "https://main-project-backend-1z6e.onrender.com/jobseekers"
+        "https://main-project-backend-1z6e.onrender.com/jobseekers",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -36,12 +42,14 @@ const JobSeekersSection = () => {
   const handlePayment = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(
         "https://main-project-backend-1z6e.onrender.com/payments",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ amount: 50 }), // Adjust the amount as needed
         }
@@ -70,12 +78,14 @@ const JobSeekersSection = () => {
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(
         "https://main-project-backend-1z6e.onrender.com/contact_requests",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             jobseekerID: selectedJobseeker.id,
@@ -100,8 +110,14 @@ const JobSeekersSection = () => {
   // view profile
   const handleViewJobseeker = async (id) => {
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(
-        `https://main-project-backend-1z6e.onrender.com/jobseekers/${id}`
+        `https://main-project-backend-1z6e.onrender.com/jobseekers/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error(`Error fetching jobseeker details: ${response.status}`);

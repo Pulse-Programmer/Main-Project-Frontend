@@ -1,5 +1,5 @@
-import React from 'react';
-import '../../CSS/home/home.css'
+import React from "react";
+import "../../CSS/home/home.css";
 const Footer = () => {
   return (
     <footer className="footer bg-success">

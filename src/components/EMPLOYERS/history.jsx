@@ -11,8 +11,12 @@ const OurHistory = () => {
   const [history, setHistory] = useState("");
 
   function handleLogoutClick() {
+    const token = localStorage.getItem("access_token");
     fetch("https://main-project-backend-1z6e.onrender.com/logout", {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((r) => {
         if (r.ok) {
@@ -23,7 +27,15 @@ const OurHistory = () => {
   }
   // getting user name and comanies name
   useEffect(() => {
-    fetch(`https://main-project-backend-1z6e.onrender.com/employers/${user.id}`)
+    const token = localStorage.getItem("access_token");
+    fetch(
+      `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         setCompanyName(data.company_name); // Update with the correct field from the backend
@@ -33,8 +45,12 @@ const OurHistory = () => {
     // fetching company history
     const fetchHistory = async () => {
       try {
+        const token = localStorage.getItem("access_token");
         const response = await fetch(
-          `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`
+          `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
         const data = await response.json();
         setHistory(data.history);
@@ -49,14 +65,14 @@ const OurHistory = () => {
     <div className="">
       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
         <div className="container">
-          <a className="navbar-brand" href="/Main-Project-Frontend">
+          <span className="navbar-brand">
             <img
               src="https://img.icons8.com/?size=50&id=pB77uEobJRjy&format=png"
               alt="Acme Employers"
               className="navbar-logo"
             />
             Acme Employers
-          </a>
+          </span>
 
           <div className="" id="navbarNav">
             <ul className="navbar-nav ml-auto">
@@ -79,9 +95,9 @@ const OurHistory = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <a onClick={handleLogoutClick} className="nav-link" href="#">
+                <span onClick={handleLogoutClick} className="nav-link">
                   Logout
-                </a>
+                </span>
               </li>
             </ul>
           </div>

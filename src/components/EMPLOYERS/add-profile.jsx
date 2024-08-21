@@ -22,12 +22,14 @@ function CompanyForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(
         `https://main-project-backend-1z6e.onrender.com/employers`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         }

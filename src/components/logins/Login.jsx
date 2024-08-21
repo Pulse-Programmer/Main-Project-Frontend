@@ -34,13 +34,14 @@ const Login = () => {
       const result = await response.json();
 
       if (response.ok) {
-        setUser(result);
+        localStorage.setItem("access_token", result.access_token);
+        setUser(result.user);
         // Check the role in the result for navigation
-        if (result.role === "admin") {
+        if (result.user.role === "admin") {
           navigate("/Main-Project-Frontend/admin-profile");
-        } else if (result.role === "job-seeker" || "jobseeker") {
+        } else if (result.user.role === ("job-seeker" || "jobseeker")) {
           navigate("/Main-Project-Frontend/jobseeker-profile");
-        } else if (result.role === "employer") {
+        } else if (result.user.role === "employer") {
           navigate("/Main-Project-Frontend/employers-profile");
         } else {
           // Handle cases where role might be undefined or not expected
@@ -96,7 +97,9 @@ const Login = () => {
       <div className="up">
         <p className="don">
           Don't have an account?{" "}
-          <a href="/Main-Project-Frontend/signup">Sign up</a>{" "}
+          <span onClick={() => navigate("/Main-Project-Frontend/signup")}>
+            Sign up
+          </span>{" "}
         </p>
       </div>
     </div>

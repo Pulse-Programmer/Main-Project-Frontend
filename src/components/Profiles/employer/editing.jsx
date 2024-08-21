@@ -14,12 +14,14 @@ const UpdateForm = () => {
     e.preventDefault();
 
     try {
+      const token = localStorage.getItem("access_token");
       const response = await fetch(
         `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             company_name: companyName,

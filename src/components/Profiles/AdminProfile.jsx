@@ -3,22 +3,20 @@ import AdminDashboard from "../ADMIN/admin";
 
 import { useOutletContext } from "react-router-dom";
 
-
-function AdminProfile (){
-  const {user} = useOutletContext();
+function AdminProfile() {
+  const { user } = useOutletContext();
   if (user) {
-    return(
+    return (
       <div className="bg-light">
         <AdminDashboard />
       </div>
-    )
-  }
-  else{
-    return(
+    );
+  } else {
+    return (
       <div>
         <h1>loading...</h1>
       </div>
-    )
+    );
   }
 }
-export default AdminProfile
+export default AdminProfile;

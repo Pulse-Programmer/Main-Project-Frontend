@@ -10,29 +10,33 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("access_token");
     // auto-login
-    fetch("https://main-project-backend-1z6e.onrender.com/check_session", {
-      method: "GET",
-      credentials: "include",
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user_data) => {
-          setUser(user_data);
-          if (user_data.role === "admin") {
-            navigate("/Main-Project-Frontend/admin-profile");
-          } else if (user_data.role === "job-seeker" || "jobseeker") {
-            navigate("/Main-Project-Frontend/jobseeker-profile");
-          } else if (user_data.role === "employer") {
-            navigate("/Main-Project-Frontend/employers-profile");
-          }
-        });
-      }
-    });
+    if (token) {
+      fetch("https://main-project-backend-1z6e.onrender.com/check_session", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((r) => {
+        if (r.ok) {
+          r.json().then((user_data) => {
+            setUser(user_data);
+            console.log(user_data.role);
+
+            if (user_data.role === "admin") {
+              navigate("/Main-Project-Frontend/admin-profile");
+            } else if (user_data.role === "employer") {
+              navigate("/Main-Project-Frontend/employers-profile");
+            } else if (user_data.role === ("job-seeker" || "jobseeker")) {
+              navigate("/Main-Project-Frontend/jobseeker-profile");
+            }
+          });
+        }
+      });
+    }
   }, []); //livd
 
   // if (!user) return <Login onLogin={setUser} />;
-
-  console.log(user);
 
   return (
     <div className="App">

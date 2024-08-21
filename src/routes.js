@@ -47,7 +47,7 @@ const routes = [
       {
         path: "/Main-Project-Frontend",
         element: <Home />,
-        },
+      },
       {
         path: "/Main-Project-Frontend/jobseeker-profile",
         element: <ProfileCard />,
