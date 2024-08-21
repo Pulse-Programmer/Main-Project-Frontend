@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import '../../../CSS/EMPLOYERS/add-profile.css'
+import "../../../CSS/EMPLOYERS/add-profile.css";
 import { useNavigate } from "react-router-dom";
 
 const UpdateForm = () => {
@@ -14,17 +14,20 @@ const UpdateForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`/employers/${user.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          company_name: companyName,
-          history: history,
-          services_offered: services,
-        }),
-      });
+      const response = await fetch(
+        `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            company_name: companyName,
+            history: history,
+            services_offered: services,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -44,9 +47,14 @@ const UpdateForm = () => {
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
-      <form onSubmit={handleSubmit} className="card p-4 shadow-lg company-form-card">
-      <h3 className="mb-4 text-success">About Your Company</h3>
-                <p className="mb-4">Fill out the details below to showcase your business.</p>
+      <form
+        onSubmit={handleSubmit}
+        className="card p-4 shadow-lg company-form-card"
+      >
+        <h3 className="mb-4 text-success">About Your Company</h3>
+        <p className="mb-4">
+          Fill out the details below to showcase your business.
+        </p>
         <div className="mb-3">
           <label className="form-label">Company Name:</label>
           <input
@@ -75,7 +83,7 @@ const UpdateForm = () => {
             placeholder="Enter our services"
           />
         </div>
-        <button className="btn btn-dark mt-4"  type="submit">
+        <button className="btn btn-dark mt-4" type="submit">
           Update
         </button>
       </form>

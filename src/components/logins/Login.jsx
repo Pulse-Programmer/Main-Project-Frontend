@@ -19,14 +19,17 @@ const Login = () => {
     const data = { email, password };
 
     try {
-      const response = await fetch("/login", {
-        // Replace with your backend URL
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://main-project-backend-1z6e.onrender.com/login",
+        {
+          // Replace with your backend URL
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const result = await response.json();
 
@@ -35,13 +38,13 @@ const Login = () => {
         // Check the role in the result for navigation
         if (result.role === "admin") {
           navigate("/Main-Project-Frontend/admin-profile");
-        } else if (result.role === "job-seeker") {
+        } else if (result.role === "job-seeker" || "jobseeker") {
           navigate("/Main-Project-Frontend/jobseeker-profile");
         } else if (result.role === "employer") {
           navigate("/Main-Project-Frontend/employers-profile");
         } else {
           // Handle cases where role might be undefined or not expected
-          navigate("/Main-Project-Frontend/default-profile"); // Change to a default profile route if needed
+          navigate("/Main-Project-Frontend/login"); // Change to a default profile route if needed
         }
       } else {
         // Handle errors (e.g., show a message to the user)
@@ -83,9 +86,7 @@ const Login = () => {
             required
           />
         </div>
-        <div className="h4">
-          <a href="#">Forgot your Password?</a>
-        </div>
+        <div className="h4">{/* <a href="#">Forgot your Password?</a> */}</div>
         <div className="h4">
           <button type="submit" className="btn btn2 btn-success">
             Login

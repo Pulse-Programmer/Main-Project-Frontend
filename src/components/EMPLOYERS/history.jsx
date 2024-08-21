@@ -11,7 +11,9 @@ const OurHistory = () => {
   const [history, setHistory] = useState("");
 
   function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" })
+    fetch("https://main-project-backend-1z6e.onrender.com/logout", {
+      method: "DELETE",
+    })
       .then((r) => {
         if (r.ok) {
           setUser(null);
@@ -21,7 +23,7 @@ const OurHistory = () => {
   }
   // getting user name and comanies name
   useEffect(() => {
-    fetch(`/employers/${user.id}`)
+    fetch(`https://main-project-backend-1z6e.onrender.com/employers/${user.id}`)
       .then((r) => r.json())
       .then((data) => {
         setCompanyName(data.company_name); // Update with the correct field from the backend
@@ -31,7 +33,9 @@ const OurHistory = () => {
     // fetching company history
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`/employers/${user.id}`);
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/employers/${user.id}`
+        );
         const data = await response.json();
         setHistory(data.history);
       } catch (error) {
@@ -39,15 +43,13 @@ const OurHistory = () => {
       }
     };
     fetchHistory();
-
   }, [user.id]);
-
 
   return (
     <div className="">
       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <img
               src="https://img.icons8.com/?size=50&id=pB77uEobJRjy&format=png"
               alt="Acme Employers"
@@ -101,7 +103,7 @@ const OurHistory = () => {
             <div className="col-md-6">
               <h2 className="history-title">Our History</h2>
               <p className="history-text fs-5">
-              {history || "Loading history..."}
+                {history || "Loading history..."}
               </p>
             </div>
             <div className="col-md-6">

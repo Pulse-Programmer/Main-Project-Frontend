@@ -23,13 +23,16 @@ const FormComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`/employers`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `https://main-project-backend-1z6e.onrender.com/employers`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       if (response.ok) {
         console.log("Data submitted successfully");
         // Navigate to the employers page
@@ -43,14 +46,19 @@ const FormComponent = () => {
   };
 
   return (
-    <div  className="container d-flex justify-content-center align-items-center vh-100">
-      <form onSubmit={handleSubmit} className="card p-4 shadow-lg company-form-card">
-      <h3 className="mb-4 text-success">About Your Company</h3>
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <form
+        onSubmit={handleSubmit}
+        className="card p-4 shadow-lg company-form-card"
+      >
+        <h3 className="mb-4 text-success">About Your Company</h3>
         <p className="mb-4">
           Fill out the details below to showcase your business.
         </p>
         <div className="mb-3">
-          <label htmlFor="company_name" className="form-label">Company Name</label>
+          <label htmlFor="company_name" className="form-label">
+            Company Name
+          </label>
           <input
             type="text"
             name="company_name"
@@ -62,7 +70,9 @@ const FormComponent = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="history" className="form-label">Our History</label>
+          <label htmlFor="history" className="form-label">
+            Our History
+          </label>
           <textarea
             name="history"
             value={formData.history}
@@ -73,7 +83,9 @@ const FormComponent = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="services_offered" className="form-label">Our Services</label>
+          <label htmlFor="services_offered" className="form-label">
+            Our Services
+          </label>
           <textarea
             name="services_offered"
             value={formData.services_offered}
@@ -83,7 +95,7 @@ const FormComponent = () => {
             required
           />
         </div>
-        <button className="btn btn-dark"  type="submit">
+        <button className="btn btn-dark" type="submit">
           Submit
         </button>
       </form>

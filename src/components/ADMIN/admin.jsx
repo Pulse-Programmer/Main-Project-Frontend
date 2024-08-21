@@ -16,7 +16,9 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchJobseekersData = async () => {
       try {
-        const response = await fetch("/jobseekers");
+        const response = await fetch(
+          "https://main-project-backend-1z6e.onrender.com/jobseekers"
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -30,7 +32,9 @@ function AdminDashboard() {
 
     const fetchEmployersData = async () => {
       try {
-        const response = await fetch("/employers");
+        const response = await fetch(
+          "https://main-project-backend-1z6e.onrender.com/employers"
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -55,9 +59,12 @@ function AdminDashboard() {
     if (window.confirm("Are you sure you want to remove this employer?")) {
       try {
         console.log("Removing employer with ID:", id);
-        const response = await fetch(`/employers/${id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/employers/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
         if (response.ok) {
           console.log("Employer removed successfully");
           setEmployers(employers.filter((employer) => employer.id !== id));
@@ -74,9 +81,12 @@ function AdminDashboard() {
     if (window.confirm("Are you sure you want to remove this jobseeker?")) {
       try {
         console.log("Removing jobseeker with ID:", id);
-        const response = await fetch(`/jobseekers/${id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `https://main-project-backend-1z6e.onrender.com/jobseekers/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
         if (response.ok) {
           console.log("Jobseeker removed successfully");
           setJobseekers(jobseekers.filter((jobseeker) => jobseeker.id !== id));
@@ -91,7 +101,9 @@ function AdminDashboard() {
 
   // handle log out
   function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" })
+    fetch("https://main-project-backend-1z6e.onrender.com/logout", {
+      method: "DELETE",
+    })
       .then((r) => {
         if (r.ok) {
           setUser(null);
