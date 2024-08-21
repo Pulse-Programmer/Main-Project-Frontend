@@ -153,7 +153,10 @@ const SignUp = () => {
       <div className="up">
         <p className="don">
           Have an account?{" "}
-          <span onClick={() => navigate("/Main-Project-Frontend/login")}>
+          <span
+            style={{ color: "blue" }}
+            onClick={() => navigate("/Main-Project-Frontend/login")}
+          >
             Sign in
           </span>
         </p>

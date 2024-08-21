@@ -17,7 +17,7 @@ function ProfileCard() {
   });
   const [isEditing, setIsEditing] = useState(true);
   const [contactRequests, setContactRequests] = useState([]);
-  const [viewingMessages, setViewingMessages] = useState(false);
+  // const [viewingMessages, setViewingMessages] = useState(false);
   const [switched, setSwitched] = useState(false);
   const navigate = useNavigate();
 
@@ -236,7 +236,7 @@ function ProfileCard() {
       </nav>
 
       <div className="contact-requests-container">
-        {switched == false ? (
+        {switched === false ? (
           <div className="contact-requests">
             <div className="requests-header">
               <h3>Contact Requests</h3>
@@ -277,7 +277,7 @@ function ProfileCard() {
               </button>
             )}
           </div>
-        ) : switched == true ? (
+        ) : switched === true ? (
           <form className="profile-form" onSubmit={handleAddOrUpdateProfile}>
             <div className="profile-form-container">
               <div className="profile-card-2">
@@ -360,7 +360,7 @@ function ProfileCard() {
             </div>
           </form>
         ) : (
-          switched == "profile" && (
+          switched === "profile" && (
             <div className="profile-card-1">
               <h2 className="profile-name">{profile.name}</h2>
               <h4 className="profile-title">{profile.job_category}</h4>

@@ -10,7 +10,7 @@ const Login = () => {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const { setUser } = useOutletContext();
+  const { user, setUser } = useOutletContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +36,7 @@ const Login = () => {
       if (response.ok) {
         localStorage.setItem("access_token", result.access_token);
         setUser(result.user);
+        console.log(result.user.role);
         // Check the role in the result for navigation
         if (result.user.role === "admin") {
           navigate("/Main-Project-Frontend/admin-profile");
@@ -57,7 +58,7 @@ const Login = () => {
       alert("An error occurred. Please try again later.");
     }
   };
-
+  console.log(user);
   return (
     <div className="login bg-light">
       <div>
@@ -97,7 +98,10 @@ const Login = () => {
       <div className="up">
         <p className="don">
           Don't have an account?{" "}
-          <span onClick={() => navigate("/Main-Project-Frontend/signup")}>
+          <span
+            style={{ color: "blue" }}
+            onClick={() => navigate("/Main-Project-Frontend/signup")}
+          >
             Sign up
           </span>{" "}
         </p>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useOutletContext } from "react-router-dom";
+// import { useOutletContext } from "react-router-dom";
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,7 @@ const FormComponent = () => {
     services_offered: "",
   });
   const navigate = useNavigate();
-  const { user } = useOutletContext();
+  // const { user } = useOutletContext();
 
   const handleChange = (e) => {
     setFormData({
