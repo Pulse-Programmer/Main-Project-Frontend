@@ -49,7 +49,7 @@ const OurHistory = () => {
     <div className="">
       <nav className="navbar navbar-expand-lg navbar-dark bg-success">
         <div className="container">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand" href="/Main-Project-Frontend">
             <img
               src="https://img.icons8.com/?size=50&id=pB77uEobJRjy&format=png"
               alt="Acme Employers"

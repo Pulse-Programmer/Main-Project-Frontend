@@ -11,22 +11,23 @@ function App() {
 
   useEffect(() => {
     // auto-login
-    fetch("https://main-project-backend-1z6e.onrender.com/check_session").then(
-      (r) => {
-        if (r.ok) {
-          r.json().then((user_data) => {
-            setUser(user_data);
-            if (user_data.role === "admin") {
-              navigate("/Main-Project-Frontend/admin-profile");
-            } else if (user_data.role === "job-seeker" || "jobseeker") {
-              navigate("/Main-Project-Frontend/jobseeker-profile");
-            } else if (user_data.role === "employer") {
-              navigate("/Main-Project-Frontend/employers-profile");
-            }
-          });
-        }
+    fetch("https://main-project-backend-1z6e.onrender.com/check_session", {
+      method: "GET",
+      credentials: "include",
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((user_data) => {
+          setUser(user_data);
+          if (user_data.role === "admin") {
+            navigate("/Main-Project-Frontend/admin-profile");
+          } else if (user_data.role === "job-seeker" || "jobseeker") {
+            navigate("/Main-Project-Frontend/jobseeker-profile");
+          } else if (user_data.role === "employer") {
+            navigate("/Main-Project-Frontend/employers-profile");
+          }
+        });
       }
-    );
+    });
   }, []); //livd
 
   // if (!user) return <Login onLogin={setUser} />;
