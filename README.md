@@ -1,70 +1,137 @@
-# Getting Started with Create React App
+# Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is is a platform designed to bridge the gap between job seekers and employers by providing a space where employers can browse through verified profiles of potential candidates without publicly advertising vacancies. This app is akin to LinkedIn but with a specific focus on direct employer-job seeker interactions, ensuring that only qualified candidates are contacted, thus streamlining the recruitment process. It is a Flask-based web application configured with PostgreSQL, integrating several libraries to facilitate user authentication, email notifications, API documentation, and more.
 
-## Available Scripts
+## Problem statement
 
-In the project directory, you can run:
+Many employers, especially those in private companies, prefer not to publicly advertise open positions. This is due to concerns over the time-consuming process of sorting through numerous applications and the perception that advertising certain positions might reflect poorly on the company. Currently, no dedicated platform exists that allows employers to browse through verified job-seeker profiles without the need for public job postings.
 
-### `npm start`
+## Minimum Viable Product (MVP)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The MVP for this project includes the following features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- User Management:
 
-### `npm test`
+-- Admin: Approve files uploaded by users, general administration.
+-- Jobseeker: Upload and update profile, verify profile, manage availability, job category, and salary expectations.
+-- Employer: View jobseeker profiles, verify their status to view profiles, and contact jobseekers.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Authentication:
 
-### `npm run build`
+-- Login using username, email, or phone number.
+-- Privilege-based access for jobseekers, employers, and admins.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Notifications & Communication:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-- Email notifications for activities, including payments and job offers.
+-- Push notifications for the Android app.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Payment Integration:
 
-### `npm run eject`
+-- Integration with Safaricom Daraja API for employer payments.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Features
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Jobseeker
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Profile Management**: Update personal information, upload qualification files, and verify profiles.
+- **Searchable Profiles**: Employers can search for jobseekers based on specific criteria.
+- **Notifications**: Receive notifications for new messages and offers.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Employer
 
-## Learn More
+- **Search & Filter**: Search for jobseekers who meet specific job criteria.
+- **Contact Management**: Contact jobseekers directly after viewing their profiles.
+- **Payments**: Pay a fee to access the jobseeker profiles and additional services.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Admin
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **User Management**: Oversee and manage user accounts, approve file uploads.
+- **Payment Oversight**: Monitor and manage payments made by employers.
 
-### Code Splitting
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### User Authentication
 
-### Analyzing the Bundle Size
+- **POST `/login`**: Authenticate users.
+- **POST `/signup`**: Register a new user.
+- **POST `/logout`**: Logout the current user.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Jobseekers
 
-### Making a Progressive Web App
+- **GET `/jobseekers`**: Retrieve all jobseekers (restricted to verified employers/admins).
+- **POST `/jobseekers`**: Create a new jobseeker profile.
+- **GET `/jobseekers/:id`**: Get details of a specific jobseeker.
+- **PATCH `/jobseekers/:id`**: Update a jobseeker profile.
+- **DELETE `/jobseekers/:id`**: Delete a jobseeker profile.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Employers
 
-### Advanced Configuration
+- **GET `/employers`**: Retrieve all employers (restricted to admins).
+- **POST `/employers`**: Create a new employer profile.
+- **GET `/employers/:id`**: Get details of a specific employer.
+- **PATCH `/employers/:id`**: Update an employer profile.
+- **DELETE `/employers/:id`**: Delete an employer profile.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Payments
 
-### Deployment
+- **GET `/payments`**: Retrieve all payment records (restricted to admins).
+- **POST `/payments`**: Create a new payment record.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Contact Requests
 
-### `npm run build` fails to minify
+- **GET `/contact_requests`**: Retrieve all contact requests (restricted to admins).
+- **POST `/contact_requests`**: Create a new contact request.
+- **GET `/contact_requests/:id`**: Get details of a specific contact request.
+- **PATCH `/contact_requests/:id`**: Update a contact request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Technologies Used
+
+- **Backend**: Python Flask
+- **Database**: PostgreSQL
+- **Libraries**:
+  - Flask-Mail
+  - Flask-Migrate
+  - Flask-Bcrypt
+  - Flask-CORS
+  - Flask-RESTful
+  - Flasgger (Swagger documentation)
+- **Environment Variables Management**: python-dotenv
+- **Testing**: Jest, Minitest
+- **Frontend**: ReactJs, Redux Toolkit for state management
+- **Wireframing**: Figma
+
+## Configuration Details
+
+- **Database Configuration**: The application uses PostgreSQL, and the database URI is securely stored as a secret in GitHub Secrets.
+- **Mail Configuration**: Flask-Mail is configured to send emails using Gmail's SMTP server.
+- **Environment Variables**: Managed using `dotenv` for database and mail settings.
+- **Routes**: The application has routes for user authentication and session management, including signup, login, logout, and session check.
+- **CORS**: Configured with support for credentials.
+
+## Contributors
+
+- **Stephen Ochieng** - Repository Owner
+- **Lynelle Wanja** - Contributor
+- **Victor Wangari** - Contributor
+- **Edward Kariu** - Contributor
+- **Mike Muigai** - Contributor
+
+## Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+- Python 3.x
+- PostgreSQL
+- Node.js (for the frontend)
+
+### Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone git@github.com:Pulse-Programmer/Main-Project-Frontend.git
+   git clone git@github.com:Pulse-Programmer/Main-Project-Backend.git
+   ```
